@@ -1,5 +1,0 @@
-# part of the makefile
-lexical: lexical.l lexical.y
-bison -d lexical.y
-flex lexical.l
-cc -o $@ lexical.tab.c lex.yy.c -lfl
