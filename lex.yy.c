@@ -445,7 +445,10 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "lexical.l"
 /* recognize tokens for the calculator and print them out */
-#line 449 "lex.yy.c"
+#line 3 "lexical.l"
+# include "lexical.tab.h"
+#line 451 "lex.yy.c"
+#line 452 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -662,9 +665,9 @@ YY_DECL
 		}
 
 	{
-#line 2 "lexical.l"
+#line 5 "lexical.l"
 
-#line 668 "lex.yy.c"
+#line 671 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -723,56 +726,56 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 3 "lexical.l"
-{ printf("PLUS\n"); }
+#line 6 "lexical.l"
+{ return ADD; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 4 "lexical.l"
-{ printf("MINUS\n"); }
+#line 7 "lexical.l"
+{ return SUB; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 5 "lexical.l"
-{ printf("TIMES\n"); }
+#line 8 "lexical.l"
+{ return MUL; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 6 "lexical.l"
-{ printf("DIVIDE\n"); }
+#line 9 "lexical.l"
+{ return DIV; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 7 "lexical.l"
-{ printf("ABS\n"); }
+#line 10 "lexical.l"
+{ return ABS; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 8 "lexical.l"
-{ printf("NUMBER %s\n", yytext); }
+#line 11 "lexical.l"
+{ yylval = atoi(yytext); return NUMBER; }
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 9 "lexical.l"
-{ printf("NEWLINE\n"); }
+#line 12 "lexical.l"
+{ return EOL; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 10 "lexical.l"
-{ }
+#line 13 "lexical.l"
+{ /* ignore whitespace */ }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 11 "lexical.l"
-{ printf("Mystery character %s\n", yytext); }
+#line 14 "lexical.l"
+{ printf("Mystery character %c\n", *yytext); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 12 "lexical.l"
+#line 15 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 776 "lex.yy.c"
+#line 779 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1777,6 +1780,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 12 "lexical.l"
+#line 15 "lexical.l"
 
 
