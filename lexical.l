@@ -1,28 +1,16 @@
+/* recognize tokens for the calculator and print them out */
 %{
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-int nb_ligne=1;
+# include "synt.tab.h"
 %}
-lettre [a-zA-Z]
-chiffre [0-9]
-IDF {lettre}({lettre}|{chiffre})*
-cst {chiffre}+
 %%
-{IDF} printf(" IDF reconnu %s \n",yytext);
-{cst} printf(" CST reconnu %s\n",yytext);
-"=" printf(" = reconnu\n");
-";" printf(" ; reconnu\n");
-[ \t]
-\n nb_ligne++;
-. printf("Erreur lexicale ligne %d sur l'entite %s\n",nb_ligne,yytext);
+"+" { return ADD; }
+"-" { return SUB; }
+"*" { return MUL; }
+"/" { return DIV; }
+"|" { return ABS; }
+[0-9]+ { yylval = atoi(yytext); return NUMBER; }
+\n { return EOL; }
+[ \t] { /* ignore whitespace */ }
+. { printf("Mystery character %c\n", *yytext); }
 %%
-int main() 
-{  
-   yyin = fopen( "exemple.txt", "r" );
-   
-   if (yyin==NULL) printf("ERROR \n");
-	else yylex();  
-   
-   return 0; 
-}
+
