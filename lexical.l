@@ -15,7 +15,7 @@ CST_BOOL (true|false)
 comment #([^\n])*
 
 %% 
-{letter}	{col = col + 1;}
+
 int       	{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext);}
 float     	{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext);}
 char      	{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext);}
