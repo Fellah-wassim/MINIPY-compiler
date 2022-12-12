@@ -12,14 +12,15 @@ CST_CHAR      \'[^']\'
 CST_INT  ({figure}+|"\("[+-]{figure}+"\)")
 CST_FLOAT	({figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\))
 CST_BOOL (true|false)
-
+comment #([^\n])*
 
 %% 
+{letter}	{col = col + 1;}
 int       	{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext);}
 float     	{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext);}
 char      	{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext);}
 bool	  	{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);}
-[ ]       	{identation = identation + 1;}
+[ ]       	{identation = identation + 1; col = col + 1;}
 [    \t]  	{printf("Tab number '%d' !!! \n", identation);}
 "+"       	{printf("addition recognized : %s \n",yytext); }
 "-"       	{printf("Subtraction recognized : %s \n",yytext);}
@@ -46,7 +47,7 @@ bool	  	{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);}
 "range"   	{printf("key_word_RANGE  recognized \n");}
 ":"       	{printf("colon recognized \n");col = col + strlen(yytext);}
 ","       	{printf("virgule recognized \n");col = col + strlen(yytext);}
-"#"       	{printf("comment recognized : %s \n",yytext); col = col + strlen(yytext);}
+{comment}   {printf("comment recognized : %s \n",yytext); col = col + strlen(yytext);}
 {IDF}     	{if(strlen(yytext)>8){
 				printf("IDF invalide line: %d, colonne: %d", lineNumber,col);
 			}
@@ -67,6 +68,6 @@ bool	  	{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);}
 
 "="   		{printf("assignment recognized \n"); col = col+strlen(yytext);}
 \n    		{lineNumber++; col = 1;}
-. printf ("lexical error : lexical entity has not recognized %s in line %d colonne %d\n",yytext, lineNumber, col);
+. { 
+	printf ("lexical error : lexical entity has not recognized %s in line %d colonne %d\n",yytext, lineNumber, col);}
 %%
-
