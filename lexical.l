@@ -1,4 +1,5 @@
-%{  
+%{ 
+	#include "synt.tab.h" 
    int lineNumber = 1;
    int col = 1;
    int identation = 0;
@@ -34,7 +35,7 @@ bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);retu
 ">="      	{printf("key_word_SUPERIOR_OR_EQUAL recognized \n"); return key_word_SUPERIOR_OR_EQUAL; } 
 "<="      	{printf("key_word_LOWER_OR_EQUAL recognized \n"); return key_word_LOWER_OR_EQUAL;}
 "=="      	{printf("key_word_EQUAL recognized \n");  return key_word_EQUAL;}
-"!="      	{printf("key_word_NOT_EQUAL recognized  \n")  return key_word_NOT_EQUAL;;}
+"!="      	{printf("key_word_NOT_EQUAL recognized  \n"); return key_word_NOT_EQUAL;;}
 "("       	{printf("openBracket recognized \n");  return openBracket;}
 "["       	{printf("openSquareBracket recognized \n"); return openSquareBracket;}
 "]"       	{printf("closeSquareBracket recognized \n"); return closeSquareBracket;}

@@ -502,11 +502,12 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "lexical.l"
 #line 2 "lexical.l"
+	#include "synt.tab.h" 
    int lineNumber = 1;
    int col = 1;
    int identation = 0;
-#line 509 "lex.yy.c"
 #line 510 "lex.yy.c"
+#line 511 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -723,10 +724,10 @@ YY_DECL
 		}
 
 	{
-#line 17 "lexical.l"
+#line 18 "lexical.l"
 
 
-#line 730 "lex.yy.c"
+#line 731 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -785,181 +786,183 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "lexical.l"
-{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext);}
+#line 20 "lexical.l"
+{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext); return key_word_INTEGER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 20 "lexical.l"
-{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext);}
+#line 21 "lexical.l"
+{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext); return key_word_FLOAT;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "lexical.l"
-{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext);}
+#line 22 "lexical.l"
+{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext); return key_word_CHAR;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "lexical.l"
-{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);}
+#line 23 "lexical.l"
+{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);return key_word_BOOL;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "lexical.l"
+#line 24 "lexical.l"
 {identation = identation + 1; col = col + 1;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "lexical.l"
+#line 25 "lexical.l"
 {printf("Tab number '%d' !!! \n", identation);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "lexical.l"
-{printf("addition recognized : %s \n",yytext); }
+#line 26 "lexical.l"
+{printf("addition recognized : %s \n",yytext); return ADD_op;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "lexical.l"
-{printf("Subtraction recognized : %s \n",yytext);}
+#line 27 "lexical.l"
+{printf("Subtraction recognized : %s \n",yytext);return MIN_op;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "lexical.l"
-{printf("division recognized : %s \n",yytext);}
+#line 28 "lexical.l"
+{printf("division recognized : %s \n",yytext); return DIV_op;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "lexical.l"
-{printf("multiplication recognized : %s \n",yytext);}
+#line 29 "lexical.l"
+{printf("multiplication recognized : %s \n",yytext); return MUL_op;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 "lexical.l"
-{printf("key_word_AND recognized \n");}
+#line 30 "lexical.l"
+{printf("key_word_AND recognized \n"); return key_word_AND;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "lexical.l"
-{printf("key_word_OR recognized \n");}
+#line 31 "lexical.l"
+{printf("key_word_OR recognized \n"); return key_word_OR;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 31 "lexical.l"
-{printf("key_word_NOT recognized \n");}
+#line 32 "lexical.l"
+{printf("key_word_NOT recognized \n"); return key_word_NOT;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 32 "lexical.l"
-{printf("key_word_SUPERIOR recognized \n");} 
+#line 33 "lexical.l"
+{printf("key_word_SUPERIOR recognized \n"); return key_word_SUPERIOR ;} 
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 33 "lexical.l"
-{printf("key_word_LOWER recognized \n");}
+#line 34 "lexical.l"
+{printf("key_word_LOWER recognized \n"); return key_word_LOWER;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 34 "lexical.l"
-{printf("key_word_SUPERIOR_OR_EQUAL recognized \n");} 
+#line 35 "lexical.l"
+{printf("key_word_SUPERIOR_OR_EQUAL recognized \n"); return key_word_SUPERIOR_OR_EQUAL; } 
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 35 "lexical.l"
-{printf("key_word_LOWER_OR_EQUAL recognized \n");}
+#line 36 "lexical.l"
+{printf("key_word_LOWER_OR_EQUAL recognized \n"); return key_word_LOWER_OR_EQUAL;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 36 "lexical.l"
-{printf("key_word_EQUAL recognized \n");}
+#line 37 "lexical.l"
+{printf("key_word_EQUAL recognized \n");  return key_word_EQUAL;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 37 "lexical.l"
-{printf("key_word_NOT_EQUAL recognized  \n");}
+#line 38 "lexical.l"
+{printf("key_word_NOT_EQUAL recognized  \n"); return key_word_NOT_EQUAL;;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 38 "lexical.l"
-{printf("openedBracket recognized \n");}
+#line 39 "lexical.l"
+{printf("openBracket recognized \n");  return openBracket;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 39 "lexical.l"
-{printf("openedSquareBracket recognized \n");}
+#line 40 "lexical.l"
+{printf("openSquareBracket recognized \n"); return openSquareBracket;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 40 "lexical.l"
-{printf("closedSquareBracket recognized \n");}
+#line 41 "lexical.l"
+{printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 41 "lexical.l"
-{printf("closedBracket recognized \n");} 
+#line 42 "lexical.l"
+{printf("closeBracket recognized \n"); return closeBracket;} 
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 42 "lexical.l"
-{printf("key_word_IF recognized  \n");}
+#line 43 "lexical.l"
+{printf("key_word_IF recognized  \n"); return key_word_IF; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 43 "lexical.l"
-{printf("key_word_ELSE recognized \n");}
+#line 44 "lexical.l"
+{printf("key_word_ELSE recognized \n"); return key_word_ELSE;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 44 "lexical.l"
-{printf("key_word_WHILE recognized \n");;}
+#line 45 "lexical.l"
+{printf("key_word_WHILE recognized \n"); return key_word_WHILE;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 45 "lexical.l"
-{printf("key_word_FOR recognized \n");}
+#line 46 "lexical.l"
+{printf("key_word_FOR recognized \n"); return key_word_FOR;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 46 "lexical.l"
-{printf("key_word_IN recognized \n");}
+#line 47 "lexical.l"
+{printf("key_word_IN recognized \n"); return key_word_IN;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 47 "lexical.l"
-{printf("key_word_RANGE  recognized \n");}
+#line 48 "lexical.l"
+{printf("key_word_RANGE  recognized \n"); return key_word_RANGE;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 48 "lexical.l"
-{printf("colon recognized \n");col = col + strlen(yytext);}
+#line 49 "lexical.l"
+{printf("colon recognized \n");col = col + strlen(yytext); return colon;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 49 "lexical.l"
-{printf("virgule recognized \n");col = col + strlen(yytext);}
+#line 50 "lexical.l"
+{printf("virgule recognized \n");col = col + strlen(yytext); return virgule;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 50 "lexical.l"
+#line 51 "lexical.l"
 {printf("comment recognized : %s \n",yytext); col = col + strlen(yytext);}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 51 "lexical.l"
+#line 52 "lexical.l"
 {if(strlen(yytext)>8){
 				printf("IDF invalide line: %d, colonne: %d", lineNumber,col);
 			}
 			else{
 				printf("IDF recognized : %s \n",yytext);
+				return IDF;
 			}
 			}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 58 "lexical.l"
+#line 60 "lexical.l"
 {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){
 				printf("Lexical entity recognized %s \n", yytext );
 				col = col + strlen(yytext);
+				return CST_INT;
 	        }
 	        else{
 				printf("integer invalide line: %d, colonne: %d", lineNumber,col);
@@ -967,43 +970,44 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 65 "lexical.l"
-{printf("REEL recognized : %s \n",yytext); col = col + strlen(yytext);}
+#line 68 "lexical.l"
+{printf("REEL recognized : %s \n",yytext); col = col + strlen(yytext); return CST_FLOAT;}
 	YY_BREAK
 case 36:
 /* rule 36 can match eol */
 YY_RULE_SETUP
-#line 66 "lexical.l"
-{printf("CHAR recognized : %s \n",yytext); col = col + strlen(yytext);}
+#line 69 "lexical.l"
+{printf("CHAR recognized : %s \n",yytext); col = col + strlen(yytext); return CST_CHAR;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 67 "lexical.l"
-{printf("BOOLEAN recognized : %s \n",yytext); col = col + strlen(yytext);}
+#line 70 "lexical.l"
+{printf("BOOLEAN recognized : %s \n",yytext); col = col + strlen(yytext); return CST_BOOL;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 69 "lexical.l"
-{printf("assignment recognized \n"); col = col+strlen(yytext);}
+#line 72 "lexical.l"
+{printf("assignment recognized \n"); col = col+strlen(yytext);return key_word_ASSIGNMENT;}
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
-#line 70 "lexical.l"
-{lineNumber++; col = 1;}
+#line 73 "lexical.l"
+{lineNumber++; col = 1; return newLine;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 71 "lexical.l"
+#line 74 "lexical.l"
 { 
-	printf ("lexical error : lexical entity has not recognized %s in line %d colonne %d\n",yytext, lineNumber, col);}
+	printf ("lexical error : lexical entity has not recognized %s in line %d colonne %d\n",yytext, lineNumber, col);
+}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 73 "lexical.l"
+#line 77 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1007 "lex.yy.c"
+#line 1011 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2008,6 +2012,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 73 "lexical.l"
+#line 77 "lexical.l"
 
 
