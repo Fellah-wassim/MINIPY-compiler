@@ -1,8 +1,8 @@
 %{ 
 	#include "synt.tab.h" 
-   int lineNumber = 1;
-   int col = 1;
-   int identation = 0;
+  int lineNumber = 1;
+  int col = 1;
+  int identation = 0;
 %}
 
 upperCaseLetter [A-Z]
@@ -21,7 +21,7 @@ int       	{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext);
 float     	{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext); return key_word_FLOAT;}
 char      	{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext); return key_word_CHAR;}
 bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);return key_word_BOOL;}
-[ ]       	{identation = identation + 1; col = col + 1;}
+[ ]       	{identation = identation + 1; col = col + 1; return key_word_space;}
 [    \t]  	{printf("Tab number '%d' !!! \n", identation);}
 "+"       	{printf("addition recognized : %s \n",yytext); return ADD_op;}
 "-"       	{printf("Subtraction recognized : %s \n",yytext);return MIN_op;}
@@ -30,6 +30,15 @@ bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);retu
 "and"  			{printf("key_word_AND recognized \n"); return key_word_AND;}
 "or"    	 	{printf("key_word_OR recognized \n"); return key_word_OR;}
 "not"    		{printf("key_word_NOT recognized \n"); return key_word_NOT;}
+"if"      	{printf("key_word_IF recognized  \n"); return key_word_IF; }
+"else"    	{printf("key_word_ELSE recognized \n"); return key_word_ELSE;}
+"while"   	{printf("key_word_WHILE recognized \n"); return key_word_WHILE;}
+"for"     	{printf("key_word_FOR recognized \n"); return key_word_FOR;}
+"in"      	{printf("key_word_IN recognized \n"); return key_word_IN;}
+"range"   	{printf("key_word_RANGE  recognized \n"); return key_word_RANGE;}
+":"       	{printf("colon recognized \n");col = col + strlen(yytext); return colon;}
+","       	{printf("virgule recognized \n");col = col + strlen(yytext); return virgule;}
+{comment}   {printf("comment recognized : %s \n",yytext); col = col + strlen(yytext);}
 ">"     	 	{printf("key_word_SUPERIOR recognized \n"); return key_word_SUPERIOR ;} 
 "<"      		{printf("key_word_LOWER recognized \n"); return key_word_LOWER;}
 ">="      	{printf("key_word_SUPERIOR_OR_EQUAL recognized \n"); return key_word_SUPERIOR_OR_EQUAL; } 
@@ -40,15 +49,7 @@ bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);retu
 "["       	{printf("openSquareBracket recognized \n"); return openSquareBracket;}
 "]"       	{printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
 ")"       	{printf("closeBracket recognized \n"); return closeBracket;} 
-"if"      	{printf("key_word_IF recognized  \n"); return key_word_IF; }
-"else"    	{printf("key_word_ELSE recognized \n"); return key_word_ELSE;}
-"while"   	{printf("key_word_WHILE recognized \n"); return key_word_WHILE;}
-"for"     	{printf("key_word_FOR recognized \n"); return key_word_FOR;}
-"in"      	{printf("key_word_IN recognized \n"); return key_word_IN;}
-"range"   	{printf("key_word_RANGE  recognized \n"); return key_word_RANGE;}
-":"       	{printf("colon recognized \n");col = col + strlen(yytext); return colon;}
-","       	{printf("virgule recognized \n");col = col + strlen(yytext); return virgule;}
-{comment}   {printf("comment recognized : %s \n",yytext); col = col + strlen(yytext);}
+
 {IDF}     	{if(strlen(yytext)>8){
 				printf("IDF invalide line: %d, colonne: %d", lineNumber,col);
 			}
