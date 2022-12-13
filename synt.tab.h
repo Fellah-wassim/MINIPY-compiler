@@ -71,26 +71,27 @@ extern int yydebug;
     openBracket = 272,             /* openBracket  */
     closeBracket = 273,            /* closeBracket  */
     ADD_op = 274,                  /* ADD_op  */
-    MIN_op = 275,                  /* MIN_op  */
-    DIV_op = 276,                  /* DIV_op  */
-    MUL_op = 277,                  /* MUL_op  */
-    key_word_AND = 278,            /* key_word_AND  */
-    key_word_OR = 279,             /* key_word_OR  */
-    key_word_NOT = 280,            /* key_word_NOT  */
-    key_word_SUPERIOR = 281,       /* key_word_SUPERIOR  */
-    key_word_LOWER = 282,          /* key_word_LOWER  */
-    key_word_SUPERIOR_OR_EQUAL = 283, /* key_word_SUPERIOR_OR_EQUAL  */
-    key_word_LOWER_OR_EQUAL = 284, /* key_word_LOWER_OR_EQUAL  */
-    key_word_IF = 285,             /* key_word_IF  */
-    key_word_FOR = 286,            /* key_word_FOR  */
-    key_word_ELSE = 287,           /* key_word_ELSE  */
-    key_word_WHILE = 288,          /* key_word_WHILE  */
-    key_word_RANGE = 289,          /* key_word_RANGE  */
-    key_word_IN = 290,             /* key_word_IN  */
-    colon = 291,                   /* colon  */
-    virgule = 292,                 /* virgule  */
-    newLine = 293,                 /* newLine  */
-    true_bloc = 294                /* true_bloc  */
+    key_word_space = 275,          /* key_word_space  */
+    MIN_op = 276,                  /* MIN_op  */
+    DIV_op = 277,                  /* DIV_op  */
+    MUL_op = 278,                  /* MUL_op  */
+    key_word_AND = 279,            /* key_word_AND  */
+    key_word_OR = 280,             /* key_word_OR  */
+    key_word_NOT = 281,            /* key_word_NOT  */
+    key_word_SUPERIOR = 282,       /* key_word_SUPERIOR  */
+    key_word_LOWER = 283,          /* key_word_LOWER  */
+    key_word_SUPERIOR_OR_EQUAL = 284, /* key_word_SUPERIOR_OR_EQUAL  */
+    key_word_LOWER_OR_EQUAL = 285, /* key_word_LOWER_OR_EQUAL  */
+    key_word_IF = 286,             /* key_word_IF  */
+    key_word_FOR = 287,            /* key_word_FOR  */
+    key_word_ELSE = 288,           /* key_word_ELSE  */
+    key_word_WHILE = 289,          /* key_word_WHILE  */
+    key_word_RANGE = 290,          /* key_word_RANGE  */
+    key_word_IN = 291,             /* key_word_IN  */
+    colon = 292,                   /* colon  */
+    virgule = 293,                 /* virgule  */
+    newLine = 294,                 /* newLine  */
+    true_bloc = 295                /* true_bloc  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

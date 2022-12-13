@@ -70,7 +70,7 @@
 #line 1 "synt.y"
 
     #include <stdio.h>
-    int line_number = 1, cool = 1, level = 0;
+    extern int lineNumber, col, level;
 
 #line 76 "synt.tab.c"
 
@@ -120,29 +120,30 @@ enum yysymbol_kind_t
   YYSYMBOL_openBracket = 17,               /* openBracket  */
   YYSYMBOL_closeBracket = 18,              /* closeBracket  */
   YYSYMBOL_ADD_op = 19,                    /* ADD_op  */
-  YYSYMBOL_MIN_op = 20,                    /* MIN_op  */
-  YYSYMBOL_DIV_op = 21,                    /* DIV_op  */
-  YYSYMBOL_MUL_op = 22,                    /* MUL_op  */
-  YYSYMBOL_key_word_AND = 23,              /* key_word_AND  */
-  YYSYMBOL_key_word_OR = 24,               /* key_word_OR  */
-  YYSYMBOL_key_word_NOT = 25,              /* key_word_NOT  */
-  YYSYMBOL_key_word_SUPERIOR = 26,         /* key_word_SUPERIOR  */
-  YYSYMBOL_key_word_LOWER = 27,            /* key_word_LOWER  */
-  YYSYMBOL_key_word_SUPERIOR_OR_EQUAL = 28, /* key_word_SUPERIOR_OR_EQUAL  */
-  YYSYMBOL_key_word_LOWER_OR_EQUAL = 29,   /* key_word_LOWER_OR_EQUAL  */
-  YYSYMBOL_key_word_IF = 30,               /* key_word_IF  */
-  YYSYMBOL_key_word_FOR = 31,              /* key_word_FOR  */
-  YYSYMBOL_key_word_ELSE = 32,             /* key_word_ELSE  */
-  YYSYMBOL_key_word_WHILE = 33,            /* key_word_WHILE  */
-  YYSYMBOL_key_word_RANGE = 34,            /* key_word_RANGE  */
-  YYSYMBOL_key_word_IN = 35,               /* key_word_IN  */
-  YYSYMBOL_colon = 36,                     /* colon  */
-  YYSYMBOL_virgule = 37,                   /* virgule  */
-  YYSYMBOL_newLine = 38,                   /* newLine  */
-  YYSYMBOL_true_bloc = 39,                 /* true_bloc  */
-  YYSYMBOL_YYACCEPT = 40,                  /* $accept  */
-  YYSYMBOL_S = 41,                         /* S  */
-  YYSYMBOL_CODE = 42                       /* CODE  */
+  YYSYMBOL_key_word_space = 20,            /* key_word_space  */
+  YYSYMBOL_MIN_op = 21,                    /* MIN_op  */
+  YYSYMBOL_DIV_op = 22,                    /* DIV_op  */
+  YYSYMBOL_MUL_op = 23,                    /* MUL_op  */
+  YYSYMBOL_key_word_AND = 24,              /* key_word_AND  */
+  YYSYMBOL_key_word_OR = 25,               /* key_word_OR  */
+  YYSYMBOL_key_word_NOT = 26,              /* key_word_NOT  */
+  YYSYMBOL_key_word_SUPERIOR = 27,         /* key_word_SUPERIOR  */
+  YYSYMBOL_key_word_LOWER = 28,            /* key_word_LOWER  */
+  YYSYMBOL_key_word_SUPERIOR_OR_EQUAL = 29, /* key_word_SUPERIOR_OR_EQUAL  */
+  YYSYMBOL_key_word_LOWER_OR_EQUAL = 30,   /* key_word_LOWER_OR_EQUAL  */
+  YYSYMBOL_key_word_IF = 31,               /* key_word_IF  */
+  YYSYMBOL_key_word_FOR = 32,              /* key_word_FOR  */
+  YYSYMBOL_key_word_ELSE = 33,             /* key_word_ELSE  */
+  YYSYMBOL_key_word_WHILE = 34,            /* key_word_WHILE  */
+  YYSYMBOL_key_word_RANGE = 35,            /* key_word_RANGE  */
+  YYSYMBOL_key_word_IN = 36,               /* key_word_IN  */
+  YYSYMBOL_colon = 37,                     /* colon  */
+  YYSYMBOL_virgule = 38,                   /* virgule  */
+  YYSYMBOL_newLine = 39,                   /* newLine  */
+  YYSYMBOL_true_bloc = 40,                 /* true_bloc  */
+  YYSYMBOL_YYACCEPT = 41,                  /* $accept  */
+  YYSYMBOL_S = 42,                         /* S  */
+  YYSYMBOL_CODE = 43                       /* CODE  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -473,7 +474,7 @@ union yyalloc
 #define YYLAST   1
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  40
+#define YYNTOKENS  41
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
@@ -482,7 +483,7 @@ union yyalloc
 #define YYNSTATES  5
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   294
+#define YYMAXUTOK   295
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -525,7 +526,7 @@ static const yytype_int8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39
+      35,    36,    37,    38,    39,    40
 };
 
 #if YYDEBUG
@@ -552,12 +553,13 @@ static const char *const yytname[] =
   "key_word_BOOL", "key_word_ASSIGNMENT", "CST_BOOL", "CST_FLOAT",
   "CST_CHAR", "key_word_CHAR", "key_word_INTEGER", "key_word_FLOAT",
   "key_word_EQUAL", "key_word_NOT_EQUAL", "openSquareBracket",
-  "closeSquareBracket", "openBracket", "closeBracket", "ADD_op", "MIN_op",
-  "DIV_op", "MUL_op", "key_word_AND", "key_word_OR", "key_word_NOT",
-  "key_word_SUPERIOR", "key_word_LOWER", "key_word_SUPERIOR_OR_EQUAL",
-  "key_word_LOWER_OR_EQUAL", "key_word_IF", "key_word_FOR",
-  "key_word_ELSE", "key_word_WHILE", "key_word_RANGE", "key_word_IN",
-  "colon", "virgule", "newLine", "true_bloc", "$accept", "S", "CODE", YY_NULLPTR
+  "closeSquareBracket", "openBracket", "closeBracket", "ADD_op",
+  "key_word_space", "MIN_op", "DIV_op", "MUL_op", "key_word_AND",
+  "key_word_OR", "key_word_NOT", "key_word_SUPERIOR", "key_word_LOWER",
+  "key_word_SUPERIOR_OR_EQUAL", "key_word_LOWER_OR_EQUAL", "key_word_IF",
+  "key_word_FOR", "key_word_ELSE", "key_word_WHILE", "key_word_RANGE",
+  "key_word_IN", "colon", "virgule", "newLine", "true_bloc", "$accept",
+  "S", "CODE", YY_NULLPTR
 };
 
 static const char *
@@ -621,13 +623,13 @@ static const yytype_int8 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     7,    41,    42,     0
+       0,     7,    42,    43,     0
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    40,    41,    42
+       0,    41,    42,    43
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1102,11 +1104,11 @@ yyreduce:
     printf("EXIT WITH 0");
     YYACCEPT; 
 }
-#line 1106 "synt.tab.c"
+#line 1108 "synt.tab.c"
     break;
 
 
-#line 1110 "synt.tab.c"
+#line 1112 "synt.tab.c"
 
       default: break;
     }
@@ -1301,8 +1303,13 @@ yyreturnlab:
 
 #line 18 "synt.y"
 
-
+main()
+{
+yyparse();
+}
+yywrap ()
+{}
 int yyerror ( char*  msg )  
  {
-    printf ("Erreur Syntaxique a ligne %d a colonne %d \n", line_number,cool);
+    printf ("Syntax error in line %d a colonne %d \n", lineNumber,col);
   }
