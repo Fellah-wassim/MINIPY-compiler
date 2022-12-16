@@ -16,6 +16,7 @@ S : CODE {
 };
 CODE : IDF;
 %%
+
 main()
 {
 yyparse();
