@@ -14,7 +14,7 @@ S : CODE {
     printf("EXIT WITH 0");
     YYACCEPT; 
 };
-CODE : CST_BOOL;
+CODE : IDF;
 %%
 main()
 {
