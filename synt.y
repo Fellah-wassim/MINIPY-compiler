@@ -16,7 +16,7 @@ S : CODE {
 };
 CODE : IDF;
 %%
-
+//code part
 main()
 {
 //lunch parser
