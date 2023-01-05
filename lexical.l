@@ -1,5 +1,5 @@
 %{ 
-	#include "synt.tab.h" 
+	#include "synt.tab.h"  //Get tokens from bison
   int lineNumber = 1;
   int col = 1;
   int identation = 0;
