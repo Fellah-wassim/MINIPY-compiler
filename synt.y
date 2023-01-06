@@ -4,8 +4,8 @@
 %}
 
 %token IDF CST_INT size key_word_BOOL key_word_ASSIGNMENT CST_BOOL CST_FLOAT CST_SIGNED_FLOAT  CST_CHAR key_word_CHAR key_word_INTEGER key_word_FLOAT key_word_EQUAL key_word_NOT_EQUAL
-%token openSquareBracket closeSquareBracket openBracket closeBracket ADD_op key_word_space MIN_op DIV_op MUL_op key_word_AND key_word_OR key_word_NOT key_word_SUPERIOR
-key_word_LOWER key_word_SUPERIOR_OR_EQUAL key_word_LOWER_OR_EQUAL 
+%token openSquareBracket closeSquareBracket openBracket closeBracket ADD_op MIN_op DIV_op MUL_op key_word_AND key_word_OR key_word_NOT key_word_SUPERIOR
+%token key_word_LOWER key_word_SUPERIOR_OR_EQUAL key_word_LOWER_OR_EQUAL 
 %token key_word_IF key_word_FOR key_word_ELSE key_word_WHILE key_word_RANGE key_word_IN colon virgule newLine key_word_TAB true_bloc  
 
 %left ADD_op MIN_op DIV_op MUL_op key_word_ASSIGNMENT openBracket closeBracket
@@ -15,8 +15,7 @@ key_word_LOWER key_word_SUPERIOR_OR_EQUAL key_word_LOWER_OR_EQUAL
 S : codeDeclaration {
         printf("Syntax correct \n");
         YYACCEPT; 
-    };
-    
+    }
 ;
 codeDeclaration : varDeclaration
     | TabDeclaration
@@ -38,15 +37,14 @@ VALUE : CST_INT
 ;
 TabDeclaration : type TabDeclaration2 
 ;
-TabDeclaration2 : IDF openSquareBracket size closeSquareBracket
-    | IDF openSquareBracket size closeSquareBracket virgule TabDeclaration2
+TabDeclaration2 : IDF size
+    | IDF size virgule TabDeclaration2
 ;
 type : key_word_INTEGER
     | key_word_BOOL
     | key_word_CHAR
     | key_word_FLOAT
 ;
-
 %%
 //code part
 main()
@@ -55,7 +53,7 @@ main()
 yyparse();
 }
 yywrap ()
-{ return 1;}
+{return 1;}
 int yyerror ( char*  msg )  
  {
     printf ("Syntax error in line %d colonne %d \n", lineNumber,col);

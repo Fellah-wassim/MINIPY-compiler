@@ -22,7 +22,7 @@ int       	{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext);
 float     	{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext); return key_word_FLOAT;}
 char      	{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext); return key_word_CHAR;}
 bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);return key_word_BOOL;}
-[ ]       	{identation = identation + 1; col = col + 1; return key_word_space;}
+[ ]       	
 [    \t]  	{printf("Tab number '%d' !!! \n", identation); return key_word_TAB;}
 "+"       	{printf("addition recognized : %s \n",yytext); return ADD_op;}
 "-"       	{printf("Subtraction recognized : %s \n",yytext);return MIN_op;}
