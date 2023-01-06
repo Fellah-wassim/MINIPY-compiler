@@ -15,7 +15,7 @@ CST_FLOAT	({figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\))
 CST_SIGNED_FLOAT	("("[-]?{figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\)")")
 CST_BOOL (true|false)
 comment #([^\n])*
-size ("["{figure}+"]")
+size ({figure}+)
 %% 
 
 int       	{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext); return key_word_INTEGER;}

@@ -37,8 +37,8 @@ VALUE : CST_INT
 ;
 TabDeclaration : type TabDeclaration2 
 ;
-TabDeclaration2 : IDF size
-    | IDF size virgule TabDeclaration2
+TabDeclaration2 : IDF openSquareBracket size closeSquareBracket
+    | IDF openSquareBracket size closeSquareBracket virgule TabDeclaration2
 ;
 type : key_word_INTEGER
     | key_word_BOOL
