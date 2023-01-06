@@ -12,9 +12,10 @@ IDF {upperCaseLetter}({letter}|{figure})*
 CST_CHAR      \'[^']\'   
 CST_INT  ({figure}+|"\("[+-]{figure}+"\)")
 CST_FLOAT	({figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\))
+CST_SIGNED_FLOAT	("("[-]?{figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\)")")
 CST_BOOL (true|false)
 comment #([^\n])*
-
+size ("["{figure}+"]")
 %% 
 
 int       	{printf("key_word_INTEGER recognized \n");col = col + strlen(yytext); return key_word_INTEGER;}
@@ -22,7 +23,7 @@ float     	{printf("key_word_FLOAT recognized \n");col = col + strlen(yytext); r
 char      	{printf("key_word_CHAR  recognized \n");col = col + strlen(yytext); return key_word_CHAR;}
 bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);return key_word_BOOL;}
 [ ]       	{identation = identation + 1; col = col + 1; return key_word_space;}
-[    \t]  	{printf("Tab number '%d' !!! \n", identation);}
+[    \t]  	{printf("Tab number '%d' !!! \n", identation); return key_word_TAB;}
 "+"       	{printf("addition recognized : %s \n",yytext); return ADD_op;}
 "-"       	{printf("Subtraction recognized : %s \n",yytext);return MIN_op;}
 "/"       	{printf("division recognized : %s \n",yytext); return DIV_op;}
@@ -49,24 +50,11 @@ bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);retu
 "["       	{printf("openSquareBracket recognized \n"); return openSquareBracket;}
 "]"       	{printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
 ")"       	{printf("closeBracket recognized \n"); return closeBracket;} 
-
-{IDF}     	{if(strlen(yytext)>8){
-				printf("IDF invalide line: %d, colonne: %d", lineNumber,col);
-			}
-			else{
-				printf("IDF recognized : %s \n",yytext);
-				return IDF;
-			}
-			}
-{CST_INT}  {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){
-				printf("Lexical entity recognized %s \n", yytext );
-				col = col + strlen(yytext);
-				return CST_INT;
-	        }
-	        else{
-				printf("integer invalide line: %d, colonne: %d", lineNumber,col);
-            }} 
+{size}    	{if(atoi(yytext)>0){printf("Size '%s' recognized \n", yytext); return size;}else{printf("Invalid given size ! \n");}}
+{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); return IDF;}}
+{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){printf("Lexical entity recognized %s \n", yytext ); col = col + strlen(yytext); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
 {CST_FLOAT} {printf("REEL recognized : %s \n",yytext); col = col + strlen(yytext); return CST_FLOAT;}
+{CST_SIGNED_FLOAT} {printf("SIGNED REEL recognized : %s \n",yytext); col = col + strlen(yytext); return CST_SIGNED_FLOAT;}
 {CST_CHAR}  {printf("CHAR recognized : %s \n",yytext); col = col + strlen(yytext); return CST_CHAR;}
 {CST_BOOL}  {printf("BOOLEAN recognized : %s \n",yytext); col = col + strlen(yytext); return CST_BOOL;}
 
