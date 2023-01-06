@@ -1,65 +1,114 @@
 %{
-    #include <stdio.h>
-    extern int lineNumber, col, level;
+	#include<stdio.h>
+	#include<stdlib.h>
+	#include<string.h>
+	#include<windows.h>
+  extern int lineNumber;
+	extern int col ;
+	char stockedType[10];
 %}
-%union{
-    int integer;
-    char* string;
-    float reel;
+%union 
+{ 
+   int integer;
+   float reel;
+   char* str;
+   
 }
-%token <string>IDF <integer>CST_INT size key_word_BOOL key_word_ASSIGNMENT CST_BOOL <reel>CST_FLOAT CST_SIGNED_FLOAT  <string>CST_CHAR key_word_CHAR key_word_INTEGER key_word_FLOAT key_word_EQUAL key_word_NOT_EQUAL
-%token openSquareBracket closeSquareBracket openBracket closeBracket ADD_op MIN_op DIV_op MUL_op key_word_AND key_word_OR key_word_NOT key_word_SUPERIOR
-%token key_word_LOWER key_word_SUPERIOR_OR_EQUAL key_word_LOWER_OR_EQUAL 
-%token key_word_IF key_word_FOR key_word_ELSE key_word_WHILE key_word_RANGE key_word_IN colon virgule newLine key_word_TAB true_bloc  
+%token <integer>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL key_word_IF key_word_ELSE key_word_FOR 
+		key_word_RANGE key_word_IN key_word_WHILE <str>IDF virgule key_word_ASSIGNMENT apo openSquareBracket closeSquareBracket openBracket closeBracket colon
+	  logicalOperand opr_ar opr_ari key_word_NOT comparisionOperand ind newLine <integer>CST_INT
+		<reel>CST_FLOAT <str>CST_CHAR CST_BOOL comment
 
-%left ADD_op MIN_op DIV_op MUL_op key_word_ASSIGNMENT openBracket closeBracket
 %start S
+%nonassoc comparisionOperand
+%right key_word_NOT
+%left opr_ari opr_ar
+
+
 %%
-// Section 1: Declaration
-S : codeDeclaration {
-        printf("Syntax correct \n");
-        YYACCEPT; 
-    }
+S: ListDec ListInst {printf("Syntax correct \n"); YYACCEPT;}
 ;
-//dont forget to make the comment functionality 
-codeDeclaration : varDeclaration
-    | TabDeclaration
+ListDec: DEC newLine ListDec
+	| DEC newLine
 ;
-varDeclaration : type IDFS
-    | varDeclaration2
+DEC: McType IDF ListIDF  
+	| IDF key_word_ASSIGNMENT VALUE  
+	| McType case
 ;
-IDFS : IDF virgule IDFS
-    | IDF
+case: IDF openSquareBracket CST_INT closeSquareBracket  
 ;
-varDeclaration2 : IDF key_word_ASSIGNMENT VALUE virgule varDeclaration2
-    | IDF key_word_ASSIGNMENT VALUE
+McType: key_word_INTEGER {strcpy(stockedType,"int");}
+	| key_word_FLOAT {strcpy(stockedType,"float");}
+	| key_word_CHAR {strcpy(stockedType,"char");}
+	| key_word_BOOL {strcpy(stockedType,"bool");}
 ;
-VALUE : CST_INT
-    | CST_BOOL
-    | CST_FLOAT
-    | CST_SIGNED_FLOAT
-    | CST_CHAR
+VALUE: CST_INT {strcpy(stockedType,"int");}
+  | CST_FLOAT {strcpy(stockedType,"float");}
+	| CST_CHAR {strcpy(stockedType,"char");}
+	| CST_BOOL {strcpy(stockedType,"bool");}
 ;
-TabDeclaration : type TabDeclaration2 
+ListIDF: virgule ListIDF
+  |
 ;
-TabDeclaration2 : IDF openSquareBracket size closeSquareBracket
-    | IDF openSquareBracket size closeSquareBracket virgule TabDeclaration2
+INST: inst_key_word_ASSIGNMENT
+	| inst_if
+	| inst_while
+	| inst_for
 ;
-type : key_word_INTEGER
-    | key_word_BOOL
-    | key_word_CHAR
-    | key_word_FLOAT
+ListInst: INST newLine ListInst
+	| INST
+;
+inst_key_word_ASSIGNMENT: IDF key_word_ASSIGNMENT operand
+	| IDF key_word_ASSIGNMENT expression
+	| case key_word_ASSIGNMENT operand
+	| case key_word_ASSIGNMENT expression
+;
+inst_if : key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
+	| key_word_IF openBracket cond closeBracket colon newLine Bloc 
+;
+inst_while: key_word_WHILE openBracket cond closeBracket colon newLine Bloc
+;
+inst_for: version1
+	| version2
+;
+version1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc
+;
+version2: key_word_FOR IDF key_word_IN IDF colon newLine Bloc
+;
+Bloc: ind INST newLine Bloc
+	| 
+;
+cond: operand logicalOperand operand
+	| operand comparisionOperand operand
+	| key_word_NOT operand
+	| key_word_NOT expressionWithBrackets
+;
+expression: operand opr operand
+	| operand opr expression
+	| operand opr expressionWithBrackets
+	| expressionWithBrackets
+;
+expressionWithBrackets: openBracket expression closeBracket
+;
+opr: opr_ar
+   | opr_ari
+;
+operand: VALUE
+	| IDF
+	| case
 ;
 %%
-//code part
+
 main()
 {
-//lunch parser
-yyparse();
+  yyparse();
 }
-yywrap ()
-{return 1;}
+yywrap()
+{}
 int yyerror ( char*  msg )  
  {
     printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
   }
+
+
+  

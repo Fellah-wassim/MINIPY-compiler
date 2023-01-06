@@ -39,46 +39,37 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     IDF = 258,
-     CST_INT = 259,
-     size = 260,
+     key_word_INTEGER = 258,
+     key_word_FLOAT = 259,
+     key_word_CHAR = 260,
      key_word_BOOL = 261,
-     key_word_ASSIGNMENT = 262,
-     CST_BOOL = 263,
-     CST_FLOAT = 264,
-     CST_SIGNED_FLOAT = 265,
-     CST_CHAR = 266,
-     key_word_CHAR = 267,
-     key_word_INTEGER = 268,
-     key_word_FLOAT = 269,
-     key_word_EQUAL = 270,
-     key_word_NOT_EQUAL = 271,
+     key_word_IF = 262,
+     key_word_ELSE = 263,
+     key_word_FOR = 264,
+     key_word_RANGE = 265,
+     key_word_IN = 266,
+     key_word_WHILE = 267,
+     IDF = 268,
+     virgule = 269,
+     key_word_ASSIGNMENT = 270,
+     apo = 271,
      openSquareBracket = 272,
      closeSquareBracket = 273,
      openBracket = 274,
      closeBracket = 275,
-     ADD_op = 276,
-     MIN_op = 277,
-     DIV_op = 278,
-     MUL_op = 279,
-     key_word_AND = 280,
-     key_word_OR = 281,
-     key_word_NOT = 282,
-     key_word_SUPERIOR = 283,
-     key_word_LOWER = 284,
-     key_word_SUPERIOR_OR_EQUAL = 285,
-     key_word_LOWER_OR_EQUAL = 286,
-     key_word_IF = 287,
-     key_word_FOR = 288,
-     key_word_ELSE = 289,
-     key_word_WHILE = 290,
-     key_word_RANGE = 291,
-     key_word_IN = 292,
-     colon = 293,
-     virgule = 294,
-     newLine = 295,
-     key_word_TAB = 296,
-     true_bloc = 297
+     colon = 276,
+     logicalOperand = 277,
+     opr_ar = 278,
+     opr_ari = 279,
+     key_word_NOT = 280,
+     comparisionOperand = 281,
+     ind = 282,
+     newLine = 283,
+     CST_INT = 284,
+     CST_FLOAT = 285,
+     CST_CHAR = 286,
+     CST_BOOL = 287,
+     comment = 288
    };
 #endif
 
@@ -89,16 +80,17 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 5 "synt.y"
-
-    int integer;
-    char* string;
-    float reel;
+#line 11 "synt.y"
+ 
+   int integer;
+   float reel;
+   char* str;
+   
 
 
 
 /* Line 1676 of yacc.c  */
-#line 102 "synt.tab.h"
+#line 94 "synt.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
