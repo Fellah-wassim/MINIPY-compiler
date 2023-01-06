@@ -148,7 +148,21 @@
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+
+/* Line 214 of yacc.c  */
+#line 5 "synt.y"
+
+    int integer;
+    char* string;
+    float reel;
+
+
+
+/* Line 214 of yacc.c  */
+#line 165 "synt.tab.c"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -159,7 +173,7 @@ typedef int YYSTYPE;
 
 
 /* Line 264 of yacc.c  */
-#line 163 "synt.tab.c"
+#line 177 "synt.tab.c"
 
 #ifdef short
 # undef short
@@ -452,9 +466,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    15,    15,    20,    21,    23,    24,    26,    27,    29,
-      30,    32,    33,    34,    35,    36,    38,    40,    41,    43,
-      44,    45,    46
+       0,    19,    19,    24,    25,    27,    28,    30,    31,    33,
+      34,    36,    37,    38,    39,    40,    42,    44,    45,    47,
+      48,    49,    50
 };
 #endif
 
@@ -1381,7 +1395,7 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 15 "synt.y"
+#line 19 "synt.y"
     {
         printf("Syntax correct \n");
         YYACCEPT; 
@@ -1391,7 +1405,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 1395 "synt.tab.c"
+#line 1409 "synt.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1603,7 +1617,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 48 "synt.y"
+#line 52 "synt.y"
 
 //code part
 main()
@@ -1615,6 +1629,6 @@ yywrap ()
 {return 1;}
 int yyerror ( char*  msg )  
  {
-    printf ("Syntax error in line %d colonne %d at the entity: %s  \n", lineNumber,col,yytext);
+    printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
   }
 

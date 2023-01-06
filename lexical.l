@@ -3,6 +3,7 @@
   int lineNumber = 1;
   int col = 1;
   int identation = 0;
+	extern YYSTYPE yylval;
 %}
 
 upperCaseLetter [A-Z]
@@ -51,11 +52,11 @@ bool	  		{printf("key_word_BOOL  recognized \n");col = col + strlen(yytext);retu
 "]"       	{printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
 ")"       	{printf("closeBracket recognized \n"); return closeBracket;} 
 {size}    	{if(atoi(yytext)>0){printf("Size '%s' recognized \n", yytext); return size;}else{printf("Invalid given size ! \n");}}
-{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); return IDF;}}
-{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){printf("Lexical entity recognized %s \n", yytext ); col = col + strlen(yytext); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
-{CST_FLOAT} {printf("REEL recognized : %s \n",yytext); col = col + strlen(yytext); return CST_FLOAT;}
+{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.string,yytext); return IDF;}}
+{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){printf("Lexical entity recognized %s \n", yytext ); col = col + strlen(yytext); yylval.integer=atoi(yytext); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
+{CST_FLOAT} {printf("REEL recognized : %s \n",yytext); col = col + strlen(yytext); yylval.reel=atof(yytext); return CST_FLOAT;}
 {CST_SIGNED_FLOAT} {printf("SIGNED REEL recognized : %s \n",yytext); col = col + strlen(yytext); return CST_SIGNED_FLOAT;}
-{CST_CHAR}  {printf("CHAR recognized : %s \n",yytext); col = col + strlen(yytext); return CST_CHAR;}
+{CST_CHAR}  {printf("CHAR recognized : %s \n",yytext); col = col + strlen(yytext); strcpy(yylval.string,yytext); return CST_CHAR;}
 {CST_BOOL}  {printf("BOOLEAN recognized : %s \n",yytext); col = col + strlen(yytext); return CST_BOOL;}
 
 "="   		{printf("assignment recognized \n"); col = col+strlen(yytext);return key_word_ASSIGNMENT;}
