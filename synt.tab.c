@@ -497,9 +497,9 @@ static const char *const yytname[] =
   "closeSquareBracket", "openBracket", "closeBracket", "colon",
   "logicalOperand", "opr_ar", "opr_ari", "key_word_NOT",
   "comparisionOperand", "ind", "newLine", "CST_INT", "CST_FLOAT",
-  "CST_CHAR", "CST_BOOL", "comment", "$accept", "S", "ListDec", "DEC",
-  "case", "McType", "VALUE", "ListIDF", "INST", "ListInst",
-  "inst_key_word_ASSIGNMENT", "inst_if", "inst_while", "inst_for",
+  "CST_CHAR", "CST_BOOL", "comment", "$accept", "Start", "declarationList",
+  "declaration", "case", "type", "VALUE", "ListIDF", "instruction",
+  "ListInst", "inst_ASSIGNMENT", "inst_if", "inst_while", "inst_for",
   "version1", "version2", "Bloc", "cond", "expression",
   "expressionWithBrackets", "opr", "operand", 0
 };

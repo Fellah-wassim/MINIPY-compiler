@@ -19,46 +19,46 @@
 	  logicalOperand opr_ar opr_ari key_word_NOT comparisionOperand ind newLine <integer>CST_INT
 		<reel>CST_FLOAT <str>CST_CHAR CST_BOOL comment
 
-%start S
+%start Start
 %nonassoc comparisionOperand
 %right key_word_NOT
 %left opr_ari opr_ar
 
 
 %%
-S: ListDec ListInst {printf("Syntax correct \n"); YYACCEPT;}
+Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
 ;
-ListDec: DEC newLine ListDec
-	| DEC newLine
+declarationList : declaration newLine declarationList
+	| declaration newLine
 ;
-DEC: McType IDF ListIDF  
+declaration : type IDF ListIDF  
 	| IDF key_word_ASSIGNMENT VALUE  
-	| McType case
+	| type case
 ;
-case: IDF openSquareBracket CST_INT closeSquareBracket  
+case : IDF openSquareBracket CST_INT closeSquareBracket  
 ;
-McType: key_word_INTEGER {strcpy(stockedType,"int");}
+type : key_word_INTEGER {strcpy(stockedType,"int");}
 	| key_word_FLOAT {strcpy(stockedType,"float");}
 	| key_word_CHAR {strcpy(stockedType,"char");}
 	| key_word_BOOL {strcpy(stockedType,"bool");}
 ;
-VALUE: CST_INT {strcpy(stockedType,"int");}
-  | CST_FLOAT {strcpy(stockedType,"float");}
+VALUE : CST_INT {strcpy(stockedType,"int");}
+    | CST_FLOAT {strcpy(stockedType,"float");}
 	| CST_CHAR {strcpy(stockedType,"char");}
 	| CST_BOOL {strcpy(stockedType,"bool");}
 ;
-ListIDF: virgule ListIDF
+ListIDF : virgule ListIDF
   |
 ;
-INST: inst_key_word_ASSIGNMENT
+instruction : inst_ASSIGNMENT
 	| inst_if
 	| inst_while
 	| inst_for
 ;
-ListInst: INST newLine ListInst
-	| INST
+ListInst: instruction newLine ListInst
+	| instruction
 ;
-inst_key_word_ASSIGNMENT: IDF key_word_ASSIGNMENT operand
+inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand
 	| IDF key_word_ASSIGNMENT expression
 	| case key_word_ASSIGNMENT operand
 	| case key_word_ASSIGNMENT expression
@@ -75,7 +75,7 @@ version1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeB
 ;
 version2: key_word_FOR IDF key_word_IN IDF colon newLine Bloc
 ;
-Bloc: ind INST newLine Bloc
+Bloc: ind instruction newLine Bloc
 	| 
 ;
 cond: operand logicalOperand operand
