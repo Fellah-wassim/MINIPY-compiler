@@ -1,7 +1,6 @@
 int G
 int A[6]
 int B
-int x
 char D
 if (A!=0):
     Mai=1
