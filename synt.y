@@ -15,15 +15,14 @@
    
 }
 %token <integer>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL key_word_IF key_word_ELSE key_word_FOR 
-		key_word_RANGE key_word_IN key_word_WHILE <str>IDF virgule key_word_ASSIGNMENT apo openSquareBracket closeSquareBracket openBracket closeBracket colon
-	  logicalOperand opr_ar opr_ari key_word_NOT comparisionOperand ind newLine <integer>CST_INT
-		<reel>CST_FLOAT <str>CST_CHAR CST_BOOL comment
+%token key_word_RANGE key_word_IN key_word_WHILE <str>IDF virgule key_word_ASSIGNMENT apo openSquareBracket closeSquareBracket openBracket closeBracket colon
+%token logicalOperand opr_ar opr_ari key_word_NOT comparisionOperand ind newLine <integer>CST_INT
+%token <reel>CST_FLOAT <str>CST_CHAR CST_BOOL comment
 
 %start Start
 %nonassoc comparisionOperand
 %right key_word_NOT
 %left opr_ari opr_ar
-
 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
@@ -43,7 +42,7 @@ type : key_word_INTEGER {strcpy(stockedType,"int");}
 	| key_word_BOOL {strcpy(stockedType,"bool");}
 ;
 VALUE : CST_INT {strcpy(stockedType,"int");}
-    | CST_FLOAT {strcpy(stockedType,"float");}
+  | CST_FLOAT {strcpy(stockedType,"float");}
 	| CST_CHAR {strcpy(stockedType,"char");}
 	| CST_BOOL {strcpy(stockedType,"bool");}
 ;
@@ -91,7 +90,7 @@ expression: operand opr operand
 expressionWithBrackets: openBracket expression closeBracket
 ;
 opr: opr_ar
-   | opr_ari
+  | opr_ari
 ;
 operand: VALUE
 	| IDF
@@ -106,9 +105,9 @@ main()
 yywrap()
 {}
 int yyerror ( char*  msg )  
- {
-    printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
-  }
+{
+	printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
+}
 
 
   

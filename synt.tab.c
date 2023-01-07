@@ -1745,5 +1745,3 @@ int yyerror ( char*  msg )
     printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
   }
 
-
-  
