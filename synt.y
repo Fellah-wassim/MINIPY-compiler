@@ -40,7 +40,7 @@ newLines : newLine newLines
 ;
 
 declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
-	| IDF key_word_ASSIGNMENT VALUE {insertValue($1,$3,stockedType);}
+	| IDF key_word_ASSIGNMENT VALUE {insertValue($1,$3,stockedType); insertType($1, stockedType);}
 	| type case {insertType($1, stockedType);}
 ;
 case : IDF openSquareBracket CST_INT closeSquareBracket 

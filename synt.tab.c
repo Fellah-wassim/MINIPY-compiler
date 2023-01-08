@@ -1479,7 +1479,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 43 "synt.y"
-    {insertValue((yyvsp[(1) - (3)].str),(yyvsp[(3) - (3)].str),stockedType);;}
+    {insertValue((yyvsp[(1) - (3)].str),(yyvsp[(3) - (3)].str),stockedType); insertType((yyvsp[(1) - (3)].str), stockedType);;}
     break;
 
   case 13:

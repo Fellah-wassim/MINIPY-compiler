@@ -1,5 +1,9 @@
+
+#comment to be ignored
 int G
+int A[6]
 int B
+B = 5
 char D
 if (A!=0):
     Mai=1
