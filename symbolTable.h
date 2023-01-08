@@ -76,7 +76,7 @@ void displaySymbolTable()
   int counter = 0;
   while (counter < counterST)
   {
-    printf("|  %8s   |    %11s     |      %8s      |      %9.3f      |\n", symbolTable[counter].name, symbolTable[counter].code, symbolTable[counter].type, symbolTable[counter].value);
+    printf("|  %8s   |   %12s     |      %8s      |      %9.3f      |\n", symbolTable[counter].name, symbolTable[counter].code, symbolTable[counter].type, symbolTable[counter].value);
     printf("|-------------|--------------------|--------------------|---------------------|\n");
     counter++;
   }

@@ -29,6 +29,7 @@ Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
 ;
 declarationList : declaration newLine declarationList
 	| declaration newLine
+	| comment newLine declarationList
 ;
 declaration : type IDF ListIDF  {insertType($2, stockedType);}
 	| IDF key_word_ASSIGNMENT VALUE {insertType($1, stockedType);} 

@@ -13,7 +13,7 @@ upperCaseLetter [A-Z]
 letter [a-zA-Z]
 figure [0-9]
 IDF {upperCaseLetter}({letter}|{figure})*
-CST_STRING   (\'[^']\')
+CST_STRING   (\'[^']*\')
 CST_INT  ({figure}+|"\("[+-]{figure}+"\)")
 CST_FLOAT	({figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\))
 CST_BOOL (true|false)
@@ -21,7 +21,6 @@ comparisionOperand (">"|"<"|">="|"<="|"=="|"!=")
 logicalOperand ("and"|"or")
 op_ar ("+"|"-")
 op_ari ("*"|"/")
-comment #([^\n])*
 size ({figure}+)
 %% 
 
@@ -42,7 +41,7 @@ bool	  		{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_BO
 "in range"  {yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_RANGE  recognized \n"); return key_word_RANGE;}
 ":"       	{col=col+strlen(yytext); printf("colon recognized \n"); return colon;}
 ","       	{col=col+strlen(yytext); printf("virgule recognized \n"); return virgule;}
-{comment}   {col=col+strlen(yytext); printf("comment recognized : %s \n",yytext); return comment;}
+"#"(.)*   		{col=col+strlen(yytext); printf("comment recognized : %s \n",yytext); return comment;}
 {comparisionOperand} {col=col+strlen(yytext); printf("comparision operand recognized : %s \n",yytext); return comparisionOperand;}
 {op_ar} 		{col=col+strlen(yytext); printf("arithmetc operation 1 recognized  %s \n", yytext); return opr_ar;}
 {op_ari}	 	{col=col+strlen(yytext); printf("arithmetic operation 2 recognized %s \n", yytext);  return opr_ari;} 
@@ -54,7 +53,7 @@ bool	  		{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_BO
 {IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",0); return IDF;}}
 {CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("Lexical entity recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
 {CST_FLOAT} {insert(yytext,"const float","float",atof(yytext)); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
-{CST_STRING} {insert(yytext,"const string","string",0); strcpy(yylval.str,yytext); col=col+strlen(yytext); printf("string recognized : %s \n",yytext); return CST_STRING;}
+{CST_STRING} {insert(yytext,"const string","string",0); col=col+strlen(yytext); printf("string recognized : %s \n",yytext); return CST_STRING;}
 {CST_BOOL}  {insert(yytext,"const bool","bool",0); yylval.str=strdup(yytext); col=col+strlen(yytext); printf("BOOLEAN recognized : %s \n",yytext); return CST_BOOL;}
 
 "="   			{printf("assignment recognized \n"); col = col+strlen(yytext);return key_word_ASSIGNMENT;}
