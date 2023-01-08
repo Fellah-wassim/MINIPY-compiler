@@ -6,6 +6,7 @@
 	extern int col ;
 	char stockedType[10];
 	extern int lineNumber;
+	int checker=0;
 %}
 %union 
 { 
@@ -25,7 +26,7 @@
 %type<str> declaration type  ListIDF case VALUE
 
 %%
-Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
+Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
 | newLines declarationList ListInst
 ;
 declarationList : declaration newLines declarationList
@@ -56,13 +57,13 @@ VALUE : CST_INT {strcpy(stockedType,"int");}
 ListIDF : virgule ListIDF
   |
 ;
+ListInst: instruction newLine ListInst 
+	| instruction 
+;
 instruction : inst_ASSIGNMENT
 	| inst_if
 	| inst_while
-	| inst_for
-;
-ListInst: instruction newLine ListInst
-	| instruction
+	| inst_for 
 ;
 inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand
 	| IDF key_word_ASSIGNMENT expression
@@ -74,10 +75,10 @@ inst_if : key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_
 ;
 inst_while : key_word_WHILE openBracket cond closeBracket colon newLine Bloc
 ;
-inst_for : for1
+inst_for : for1 
 	| for2
 ;
-for1 : key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc {if($5>$7){printf ("Semantic error in line %d colonne %d : upper bound lower than the lower bound \n", lineNumber,col); YYERROR;}}
+for1 : key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc {if($5>$7){ printf ("Semantic error: upper bound lower than the lower bound in the for loop \n"); YYERROR;};}
 ;
 for2 : key_word_FOR IDF key_word_IN IDF colon newLine Bloc
 ;
