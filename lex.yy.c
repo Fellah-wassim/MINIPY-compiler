@@ -802,17 +802,17 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 54 "lexical.l"
-{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",404.404); return IDF;}}
+{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",0); return IDF;}}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 55 "lexical.l"
-{if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); col=col+strlen(yytext); printf("Lexical entity recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
+{if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("Lexical entity recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 56 "lexical.l"
-{yylval.reel=atof(yytext); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
+{strcpy(yylval.str,yytext); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP

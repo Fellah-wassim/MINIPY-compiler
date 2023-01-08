@@ -51,13 +51,13 @@ bool	  		{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_BO
 "]"       	{col=col+strlen(yytext); printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
 ")"       	{col=col+strlen(yytext); printf("closeBracket recognized \n"); return closeBracket;} 
 "'" 				{col=col+strlen(yytext); printf("apostrophe recognized %s \n", yytext); return apo;}
-{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",404.404); return IDF;}}
-{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); col=col+strlen(yytext); printf("Lexical entity recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
-{CST_FLOAT} {yylval.reel=atof(yytext); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
+{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",0); return IDF;}}
+{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("Lexical entity recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
+{CST_FLOAT} {strcpy(yylval.str,yytext); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
 {CST_CHAR}  {strcpy(yylval.str,yytext); col=col+strlen(yytext); printf("CHAR recognized : %s \n",yytext); return CST_CHAR;}
 {CST_BOOL}  {yylval.str=strdup(yytext); col=col+strlen(yytext); printf("BOOLEAN recognized : %s \n",yytext); return CST_BOOL;}
 
-"="   		{printf("assignment recognized \n"); col = col+strlen(yytext);return key_word_ASSIGNMENT;}
+"="   			{printf("assignment recognized \n"); col = col+strlen(yytext);return key_word_ASSIGNMENT;}
 [\n]    		{lineNumber++; col = 1; return newLine;}
 . { 
 	printf ("lexical error : lexical entity has not recognized %s in line %d colonne %d\n",yytext, lineNumber, col);

@@ -50,29 +50,34 @@ void insert(char entity[], char code[], char type[], float value)
     counterST++;
   }
 }
+
 //function to insert type 
 void insertType(char entityName[], char type[])
 {
   int position;
+  //we need to search for the position first
   position = search(entityName);
+  //check if the entity exist
   if(position != -1){
+    //the entity exist so we insert their type here
     strcpy(symbolTable[position].type,type);
   }
 }
+
 //function to display the symbol table
 void displaySymbolTable()
 {
   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
-  printf("\n********************** SYMBOL TABLE **********************\n");
+  printf("\n******************************* SYMBOL TABLE *******************************\n");
   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
   printf("------------------------------------------------------------------------------\n");
-  printf("|    Entity Name   |     Entity code  |     Entity type  |     Entity value  |\n");
-  printf("|------------------|------------------|------------------|-------------------|\n");
+  printf("| ENTITY NAME |   ENTITY CODE      |      ENTITY TYPE   |      ENTITY VALUE   |\n");
+  printf("|-------------|--------------------|--------------------|---------------------|\n");
   int counter = 0;
   while (counter < counterST)
   {
-    printf("|     %8s     |     %8s     |     %8s     |     %9.3f     |\n", symbolTable[counter].name, symbolTable[counter].code, symbolTable[counter].type, symbolTable[counter].value);
-    printf("|------------------|------------------|------------------|-------------------|\n");
+    printf("|  %8s   |    %11s     |      %8s      |      %9.3f      |\n", symbolTable[counter].name, symbolTable[counter].code, symbolTable[counter].type, symbolTable[counter].value);
+    printf("|-------------|--------------------|--------------------|---------------------|\n");
     counter++;
   }
   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
