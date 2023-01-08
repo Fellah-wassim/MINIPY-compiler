@@ -64,6 +64,59 @@ void insertType(char entityName[], char type[])
   }
 }
 
+//function to check the double declaration
+int doubleDeclaration(char entityName[]){
+  int position;
+  //we need to search for the position first
+  position = search(entityName);
+  if(position != -1){
+  //the entity exist so we check if their type exist
+    if(strcmp(symbolTable[position].type,"")==0){
+      //here we find that the entity doesn't have a type so its not double declared
+      return 0;
+    }else{
+      //here the entity have a type so its double declared
+      return -1;
+    }
+  }
+}
+
+//function to insert the value on the symbol table
+void insertValue(char entityName[], char valueAsString[], char type[])
+{
+  int position;
+  //we need to search for the position first
+  position = search(entityName);
+  if(position != -1){
+    if (strcmp(type,"int")==0)
+    {
+      // if the type is an integer
+      symbolTable[position].value = atoi(valueAsString);
+    }else{
+      if(strcmp(type,"float")==0)
+      {
+        // if the type is an float
+        symbolTable[position].value = atof(valueAsString);
+      }else{
+       if(strcmp(type,"bool")==0)
+       {
+          // if the type is an integer
+          if (strcmp(valueAsString,"true"))
+          {
+            // if the bool is true
+            //insert 1 for true
+            symbolTable[position].value = 1;
+          }else{
+            // if the bool is false
+            //insert -1 for false
+            symbolTable[position].value = -1;
+          }
+       } 
+       //we dont treat the case of a char cause we can't insert a char value into a float
+      }
+    }
+  }  
+}
 //function to display the symbol table
 void displaySymbolTable()
 {

@@ -6,7 +6,7 @@
 	extern int col ;
 	char stockedType[10];
 	extern int lineNumber;
-	int checker=0;
+	int error = 0;
 %}
 %union 
 { 
@@ -16,21 +16,21 @@
 }
 %token <str>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL <str>key_word_IF <str>key_word_ELSE <str>key_word_FOR 
 %token <str>key_word_RANGE <str>key_word_IN <str>key_word_WHILE <str>IDF <str>virgule <str>key_word_ASSIGNMENT  <str>openSquareBracket <str>closeSquareBracket <str>openBracket <str>closeBracket <str>colon
-%token <str>logicalOperand <str>opr_ar <str>opr_ari <str>key_word_NOT <str>comparisionOperand ind <str>newLine <integer>CST_INT
-%token <reel>CST_FLOAT <str>CST_CHAR <str>CST_BOOL comment
+%token <str>logicalOperand <str>opr_ar <str>opr_ari <str>key_word_NOT <str>comparisionOperand ind <str>newLine <str>CST_INT
+%token <str>CST_FLOAT <str>CST_CHAR <str>CST_BOOL comment
 
 %start Start
 %nonassoc comparisionOperand
 %right key_word_NOT
 %left opr_ari opr_ar
-%type<str> declaration type  ListIDF case VALUE
+%type<str> declaration type  ListIDF VALUE case
 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
 | newLines declarationList ListInst
 ;
 declarationList : declaration newLines declarationList
-	| declaration newLines
+	| declaration newLines 
 	| newLines declaration
 	| comment newLines declarationList
 	| newLines comment declarationList
@@ -38,8 +38,9 @@ declarationList : declaration newLines declarationList
 newLines : newLine newLines
 	| newLine
 ;
-declaration : type IDF ListIDF  {insertType($2, stockedType);}
-	| IDF key_word_ASSIGNMENT VALUE {insertType($1, stockedType);} 
+
+declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
+	| IDF key_word_ASSIGNMENT VALUE {insertValue($1,$3,stockedType);}
 	| type case {insertType($1, stockedType);}
 ;
 case : IDF openSquareBracket CST_INT closeSquareBracket 
@@ -49,10 +50,10 @@ type : key_word_INTEGER {strcpy(stockedType,"int");}
 	| key_word_CHAR {strcpy(stockedType,"char");}
 	| key_word_BOOL {strcpy(stockedType,"bool");}
 ;
-VALUE : CST_INT {strcpy(stockedType,"int");}
-  | CST_FLOAT {strcpy(stockedType,"float");}
-	| CST_CHAR {strcpy(stockedType,"char");}
-	| CST_BOOL {strcpy(stockedType,"bool");}
+VALUE : CST_INT {strcpy(stockedType,"int"); strcpy($$,$1);}
+  | CST_FLOAT {strcpy(stockedType,"float"); strcpy($$,$1);}
+	| CST_CHAR {strcpy(stockedType,"char"); strcpy($$,$1);}
+	| CST_BOOL {strcpy(stockedType,"bool"); strcpy($$,$1);}
 ;
 ListIDF : virgule ListIDF
   |
@@ -78,7 +79,7 @@ inst_while : key_word_WHILE openBracket cond closeBracket colon newLine Bloc
 inst_for : for1 
 	| for2
 ;
-for1 : key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc {if($5>$7){ printf ("Semantic error: upper bound lower than the lower bound in the for loop \n"); YYERROR;};}
+for1 : key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc {if(atoi($5)>atoi($7)){ printf ("Semantic error: upper bound lower than the lower bound in the for loop \n");error=1; YYERROR;};}
 ;
 for2 : key_word_FOR IDF key_word_IN IDF colon newLine Bloc
 ;
@@ -109,7 +110,7 @@ operand: VALUE
 main()
 {
   yyparse();
-	displaySymbolTable();
+	if(error==0){displaySymbolTable();} 
 }
 yywrap()
 {}

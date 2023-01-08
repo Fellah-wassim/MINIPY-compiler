@@ -50,11 +50,11 @@ bool	  		{insert(yytext,"key word","",0); yylval.str=strdup(yytext); col=col+str
 "]"       	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
 ")"       	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("closeBracket recognized \n"); return closeBracket;} 
 
-{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); insert(yytext,"idf","",0); col=col+strlen(yytext); return IDF;}}
-{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("INT recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
-{CST_FLOAT} {insert(yytext,"const float","float",atof(yytext)); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
-{CST_CHAR} {insert(yytext,"const char","char",0); col=col+strlen(yytext); printf("char recognized : %s \n",yytext); return CST_CHAR;}
-{CST_BOOL}  {insert(yytext,"const bool","bool",0); yylval.str=strdup(yytext); col=col+strlen(yytext); printf("BOOLEAN recognized : %s \n",yytext); return CST_BOOL;}
+{IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); yylval.str=strdup(yytext);  insert(yytext,"idf","",0); col=col+strlen(yytext); return IDF;}}
+{CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.str=strdup(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("INT recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
+{CST_FLOAT} {yylval.str=strdup(yytext); insert(yytext,"const float","float",atof(yytext)); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
+{CST_CHAR}  {yylval.str=strdup(yytext); insert(yytext,"const char","char",0); col=col+strlen(yytext); printf("char recognized : %s \n",yytext); return CST_CHAR;}
+{CST_BOOL}  {yylval.str=strdup(yytext); insert(yytext,"const bool","bool",0); col=col+strlen(yytext); printf("BOOLEAN recognized : %s \n",yytext); return CST_BOOL;}
 
 "="   			{printf("assignment recognized : %s \n", yytext); col=col+strlen(yytext); return key_word_ASSIGNMENT;}
 [\n]    		{lineNumber++; col = 1; printf("new Line recognized \n"); return newLine;}

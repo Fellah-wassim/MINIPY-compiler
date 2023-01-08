@@ -77,7 +77,7 @@
 	extern int col ;
 	char stockedType[10];
 	extern int lineNumber;
-	int checker=0;
+	int error = 0;
 
 
 /* Line 189 of yacc.c  */
@@ -478,11 +478,11 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    29,    29,    30,    32,    33,    34,    35,    36,    38,
-      39,    41,    42,    43,    45,    47,    48,    49,    50,    52,
-      53,    54,    55,    57,    58,    60,    61,    63,    64,    65,
-      66,    68,    69,    70,    71,    73,    74,    76,    78,    79,
-      81,    83,    85,    86,    88,    89,    90,    91,    93,    94,
-      95,    96,    98,   100,   101,   103,   104,   105
+      39,    42,    43,    44,    46,    48,    49,    50,    51,    53,
+      54,    55,    56,    58,    59,    61,    62,    64,    65,    66,
+      67,    69,    70,    71,    72,    74,    75,    77,    79,    80,
+      82,    84,    86,    87,    89,    90,    91,    92,    94,    95,
+      96,    97,    99,   101,   102,   104,   105,   106
 };
 #endif
 
@@ -1471,85 +1471,85 @@ yyreduce:
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 41 "synt.y"
-    {insertType((yyvsp[(2) - (3)].str), stockedType);;}
+#line 42 "synt.y"
+    {if(doubleDeclaration((yyvsp[(2) - (3)].str))==0){insertType((yyvsp[(2) - (3)].str), stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",(yyvsp[(2) - (3)].str),lineNumber-1); error=1; YYERROR;};;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 42 "synt.y"
-    {insertType((yyvsp[(1) - (3)].str), stockedType);;}
+#line 43 "synt.y"
+    {insertValue((yyvsp[(1) - (3)].str),(yyvsp[(3) - (3)].str),stockedType);;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 43 "synt.y"
+#line 44 "synt.y"
     {insertType((yyvsp[(1) - (2)].str), stockedType);;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 47 "synt.y"
+#line 48 "synt.y"
     {strcpy(stockedType,"int");;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 48 "synt.y"
+#line 49 "synt.y"
     {strcpy(stockedType,"float");;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 49 "synt.y"
+#line 50 "synt.y"
     {strcpy(stockedType,"char");;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 50 "synt.y"
+#line 51 "synt.y"
     {strcpy(stockedType,"bool");;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 52 "synt.y"
-    {strcpy(stockedType,"int");;}
+#line 53 "synt.y"
+    {strcpy(stockedType,"int"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 53 "synt.y"
-    {strcpy(stockedType,"float");;}
+#line 54 "synt.y"
+    {strcpy(stockedType,"float"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 54 "synt.y"
-    {strcpy(stockedType,"char");;}
+#line 55 "synt.y"
+    {strcpy(stockedType,"char"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 55 "synt.y"
-    {strcpy(stockedType,"bool");;}
+#line 56 "synt.y"
+    {strcpy(stockedType,"bool"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 81 "synt.y"
-    {if((yyvsp[(5) - (11)].str)>(yyvsp[(7) - (11)].str)){ printf ("Semantic error: upper bound lower than the lower bound in the for loop \n"); YYERROR;};;}
+#line 82 "synt.y"
+    {if(atoi((yyvsp[(5) - (11)].str))>atoi((yyvsp[(7) - (11)].str))){ printf ("Semantic error: upper bound lower than the lower bound in the for loop \n");error=1; YYERROR;};;}
     break;
 
 
@@ -1767,13 +1767,13 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 107 "synt.y"
+#line 108 "synt.y"
 
 
 main()
 {
   yyparse();
-	displaySymbolTable();
+	if(error==0){displaySymbolTable();} 
 }
 yywrap()
 {}
