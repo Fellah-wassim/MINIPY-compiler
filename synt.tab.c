@@ -153,12 +153,11 @@ typedef union YYSTYPE
    int integer;
    float reel;
    char* str;
-   
 
 
 
 /* Line 214 of yacc.c  */
-#line 162 "synt.tab.c"
+#line 161 "synt.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -170,7 +169,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 174 "synt.tab.c"
+#line 173 "synt.tab.c"
 
 #ifdef short
 # undef short
@@ -476,12 +475,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    31,    32,    34,    35,    36,    38,    40,
-      41,    42,    43,    45,    46,    47,    48,    50,    51,    53,
-      54,    55,    56,    58,    59,    61,    62,    63,    64,    66,
-      67,    69,    71,    72,    74,    76,    78,    79,    81,    82,
-      83,    84,    86,    87,    88,    89,    91,    93,    94,    96,
-      97,    98
+       0,    28,    28,    30,    31,    33,    34,    35,    37,    39,
+      40,    41,    42,    44,    45,    46,    47,    49,    50,    52,
+      53,    54,    55,    57,    58,    60,    61,    62,    63,    65,
+      66,    68,    70,    71,    73,    75,    77,    78,    80,    81,
+      82,    83,    85,    86,    87,    88,    90,    92,    93,    95,
+      96,    97
 };
 #endif
 
@@ -1456,70 +1455,91 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 29 "synt.y"
+#line 28 "synt.y"
     {printf("Syntax correct \n"); YYACCEPT;;}
+    break;
+
+  case 5:
+
+/* Line 1455 of yacc.c  */
+#line 33 "synt.y"
+    {insertType((yyvsp[(2) - (3)].str), stockedType);;}
+    break;
+
+  case 6:
+
+/* Line 1455 of yacc.c  */
+#line 34 "synt.y"
+    {insertType((yyvsp[(1) - (3)].str), stockedType);;}
+    break;
+
+  case 7:
+
+/* Line 1455 of yacc.c  */
+#line 35 "synt.y"
+    {insertType((yyvsp[(1) - (2)].str), stockedType);;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 40 "synt.y"
+#line 39 "synt.y"
     {strcpy(stockedType,"int");;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 41 "synt.y"
+#line 40 "synt.y"
     {strcpy(stockedType,"float");;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 42 "synt.y"
+#line 41 "synt.y"
     {strcpy(stockedType,"char");;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 43 "synt.y"
+#line 42 "synt.y"
     {strcpy(stockedType,"bool");;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 45 "synt.y"
+#line 44 "synt.y"
     {strcpy(stockedType,"int");;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 46 "synt.y"
+#line 45 "synt.y"
     {strcpy(stockedType,"float");;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 47 "synt.y"
+#line 46 "synt.y"
     {strcpy(stockedType,"char");;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 48 "synt.y"
+#line 47 "synt.y"
     {strcpy(stockedType,"bool");;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1523 "synt.tab.c"
+#line 1543 "synt.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1731,17 +1751,20 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 100 "synt.y"
+#line 99 "synt.y"
 
 
 main()
 {
   yyparse();
+	displaySymbolTable();
 }
 yywrap()
 {}
 int yyerror ( char*  msg )  
- {
-    printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
-  }
+{
+	printf ("Syntax error in line %d colonne %d \n", lineNumber,col);
+}
 
+
+  

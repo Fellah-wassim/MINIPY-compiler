@@ -85,12 +85,11 @@ typedef union YYSTYPE
    int integer;
    float reel;
    char* str;
-   
 
 
 
 /* Line 1676 of yacc.c  */
-#line 94 "synt.tab.h"
+#line 93 "synt.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

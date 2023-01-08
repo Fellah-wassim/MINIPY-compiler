@@ -12,17 +12,17 @@
    int integer;
    float reel;
    char* str;
-   
 }
-%token <integer>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL key_word_IF key_word_ELSE key_word_FOR 
-%token key_word_RANGE key_word_IN key_word_WHILE <str>IDF virgule key_word_ASSIGNMENT apo openSquareBracket closeSquareBracket openBracket closeBracket colon
-%token logicalOperand opr_ar opr_ari key_word_NOT comparisionOperand ind newLine <integer>CST_INT
-%token <reel>CST_FLOAT <str>CST_CHAR CST_BOOL comment
+%token <str>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL <str>key_word_IF <str>key_word_ELSE <str>key_word_FOR 
+%token <str>key_word_RANGE <str>key_word_IN <str>key_word_WHILE <str>IDF <str>virgule <str>key_word_ASSIGNMENT <str>apo <str>openSquareBracket <str>closeSquareBracket <str>openBracket <str>closeBracket <str>colon
+%token <str>logicalOperand <str>opr_ar <str>opr_ari <str>key_word_NOT <str>comparisionOperand ind <str>newLine <integer>CST_INT
+%token <reel>CST_FLOAT <str>CST_CHAR <str>CST_BOOL comment
 
 %start Start
 %nonassoc comparisionOperand
 %right key_word_NOT
 %left opr_ari opr_ar
+%type<str> declaration type  ListIDF case VALUE
 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
@@ -30,9 +30,9 @@ Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
 declarationList : declaration newLine declarationList
 	| declaration newLine
 ;
-declaration : type IDF ListIDF  
-	| IDF key_word_ASSIGNMENT VALUE  
-	| type case
+declaration : type IDF ListIDF  {insertType($2, stockedType);}
+	| IDF key_word_ASSIGNMENT VALUE {insertType($1, stockedType);} 
+	| type case {insertType($1, stockedType);} 
 ;
 case : IDF openSquareBracket CST_INT closeSquareBracket  
 ;
@@ -101,6 +101,7 @@ operand: VALUE
 main()
 {
   yyparse();
+	displaySymbolTable();
 }
 yywrap()
 {}

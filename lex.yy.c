@@ -425,7 +425,7 @@ char *yytext;
 #define INITIAL 0
 #line 2 "lexical.l"
 	#include "synt.tab.h"  //Get tokens from bison
-	#include"symboleTable.h"
+	#include"symbolTable.h"
 	#include<stdio.h>
   #include<stdlib.h>
   #include<string.h>
@@ -802,7 +802,7 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 54 "lexical.l"
-{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); return IDF;}}
+{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",404.404); return IDF;}}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
@@ -1733,3 +1733,4 @@ int main()
 	}
 #endif
 #line 65 "lexical.l"
+

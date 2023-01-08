@@ -1,0 +1,6 @@
+int G
+int A[6]
+int B
+bool C
+char D
+Y = 5.5
