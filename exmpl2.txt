@@ -1,9 +1,0 @@
-#hello world
-int G
-bool A[6]
-int P[6]
-int B
-C = true
-U = 5.56
-char D
-X = 'hello'

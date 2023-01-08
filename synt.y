@@ -3,9 +3,9 @@
 	#include<stdlib.h>
 	#include<string.h>
 	#include<windows.h>
-  extern int lineNumber;
 	extern int col ;
 	char stockedType[10];
+	extern int lineNumber;
 %}
 %union 
 { 
@@ -26,10 +26,16 @@
 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT;}
+| newLines declarationList ListInst
 ;
-declarationList : declaration newLine declarationList
-	| declaration newLine
-	| comment newLine declarationList
+declarationList : declaration newLines declarationList
+	| declaration newLines
+	| newLines declaration
+	| comment newLines declarationList
+	| newLines comment declarationList
+;
+newLines : newLine newLines
+	| newLine
 ;
 declaration : type IDF ListIDF  {insertType($2, stockedType);}
 	| IDF key_word_ASSIGNMENT VALUE {insertType($1, stockedType);} 
@@ -66,14 +72,14 @@ inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand
 inst_if : key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
 	| key_word_IF openBracket cond closeBracket colon newLine Bloc 
 ;
-inst_while: key_word_WHILE openBracket cond closeBracket colon newLine Bloc
+inst_while : key_word_WHILE openBracket cond closeBracket colon newLine Bloc
 ;
-inst_for: version1
-	| version2
+inst_for : for1
+	| for2
 ;
-version1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc
+for1 : key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc {if($5>$7){printf ("Semantic error in line %d colonne %d : upper bound lower than the lower bound \n", lineNumber,col); YYERROR;}}
 ;
-version2: key_word_FOR IDF key_word_IN IDF colon newLine Bloc
+for2 : key_word_FOR IDF key_word_IN IDF colon newLine Bloc
 ;
 Bloc: ind instruction newLine Bloc
 	| 
