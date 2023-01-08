@@ -1,6 +1,7 @@
 int G
 bool A[6]
 int B
-bool C
-char D
-Y = 5
+C = true
+U = 5.56
+string D
+X = 'hello'

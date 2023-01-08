@@ -41,7 +41,7 @@
    enum yytokentype {
      key_word_INTEGER = 258,
      key_word_FLOAT = 259,
-     key_word_CHAR = 260,
+     key_word_STRING = 260,
      key_word_BOOL = 261,
      key_word_IF = 262,
      key_word_ELSE = 263,
@@ -52,24 +52,23 @@
      IDF = 268,
      virgule = 269,
      key_word_ASSIGNMENT = 270,
-     apo = 271,
-     openSquareBracket = 272,
-     closeSquareBracket = 273,
-     openBracket = 274,
-     closeBracket = 275,
-     colon = 276,
-     logicalOperand = 277,
-     opr_ar = 278,
-     opr_ari = 279,
-     key_word_NOT = 280,
-     comparisionOperand = 281,
-     ind = 282,
-     newLine = 283,
-     CST_INT = 284,
-     CST_FLOAT = 285,
-     CST_CHAR = 286,
-     CST_BOOL = 287,
-     comment = 288
+     openSquareBracket = 271,
+     closeSquareBracket = 272,
+     openBracket = 273,
+     closeBracket = 274,
+     colon = 275,
+     logicalOperand = 276,
+     opr_ar = 277,
+     opr_ari = 278,
+     key_word_NOT = 279,
+     comparisionOperand = 280,
+     ind = 281,
+     newLine = 282,
+     CST_INT = 283,
+     CST_FLOAT = 284,
+     CST_STRING = 285,
+     CST_BOOL = 286,
+     comment = 287
    };
 #endif
 
@@ -89,7 +88,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 93 "synt.tab.h"
+#line 92 "synt.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
