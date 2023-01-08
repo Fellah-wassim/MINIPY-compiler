@@ -13,7 +13,7 @@ upperCaseLetter [A-Z]
 letter [a-zA-Z]
 figure [0-9]
 IDF {upperCaseLetter}({letter}|{figure})*
-CST_STRING   (\'[^']*\')
+CST_CHAR   (\'[^']*\')
 CST_INT  ({figure}+|"\("[+-]{figure}+"\)")
 CST_FLOAT	({figure}+"."{figure}+|\([+-]{figure}+"."{figure}+\))
 CST_BOOL (true|false)
@@ -27,7 +27,7 @@ size ({figure}+)
 [ ]       	
 int       	{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_INTEGER recognized \n"); return key_word_INTEGER;}
 float     	{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_FLOAT recognized \n"); return key_word_FLOAT;}
-string      {yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_STRING  recognized \n"); return key_word_STRING;}
+char        {yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_CHAR  recognized \n"); return key_word_CHAR;}
 bool	  		{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_BOOL  recognized \n"); return key_word_BOOL;}
 [ \t]  			{col=col+strlen(yytext);}
 "    "			{col=col+strlen(yytext); return ind;}
@@ -53,7 +53,7 @@ bool	  		{yylval.str=strdup(yytext); col=col+strlen(yytext); printf("key_word_BO
 {IDF}     	{if(strlen(yytext)>8){printf("IDF invalide line: %d, colonne: %d", lineNumber,col);}else{printf("IDF recognized : %s \n",yytext); strcpy(yylval.str,yytext); insert(yytext,"idf","",0); return IDF;}}
 {CST_INT}   {if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.integer=atoi(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("Lexical entity recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
 {CST_FLOAT} {insert(yytext,"const float","float",atof(yytext)); col=col+strlen(yytext); printf("REEL recognized : %s \n",yytext);   return CST_FLOAT;}
-{CST_STRING} {insert(yytext,"const string","string",0); col=col+strlen(yytext); printf("string recognized : %s \n",yytext); return CST_STRING;}
+{CST_CHAR} {insert(yytext,"const char","char",0); col=col+strlen(yytext); printf("char recognized : %s \n",yytext); return CST_CHAR;}
 {CST_BOOL}  {insert(yytext,"const bool","bool",0); yylval.str=strdup(yytext); col=col+strlen(yytext); printf("BOOLEAN recognized : %s \n",yytext); return CST_BOOL;}
 
 "="   			{printf("assignment recognized \n"); col = col+strlen(yytext);return key_word_ASSIGNMENT;}

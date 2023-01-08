@@ -5,5 +5,5 @@ int P[6]
 int B
 C = true
 U = 5.56
-string D
+char D
 X = 'hello'

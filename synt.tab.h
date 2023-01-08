@@ -41,7 +41,7 @@
    enum yytokentype {
      key_word_INTEGER = 258,
      key_word_FLOAT = 259,
-     key_word_STRING = 260,
+     key_word_CHAR = 260,
      key_word_BOOL = 261,
      key_word_IF = 262,
      key_word_ELSE = 263,
@@ -66,7 +66,7 @@
      newLine = 282,
      CST_INT = 283,
      CST_FLOAT = 284,
-     CST_STRING = 285,
+     CST_CHAR = 285,
      CST_BOOL = 286,
      comment = 287
    };

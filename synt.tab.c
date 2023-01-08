@@ -109,7 +109,7 @@
    enum yytokentype {
      key_word_INTEGER = 258,
      key_word_FLOAT = 259,
-     key_word_STRING = 260,
+     key_word_CHAR = 260,
      key_word_BOOL = 261,
      key_word_IF = 262,
      key_word_ELSE = 263,
@@ -134,7 +134,7 @@
      newLine = 282,
      CST_INT = 283,
      CST_FLOAT = 284,
-     CST_STRING = 285,
+     CST_CHAR = 285,
      CST_BOOL = 286,
      comment = 287
    };
@@ -490,16 +490,16 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "key_word_INTEGER", "key_word_FLOAT",
-  "key_word_STRING", "key_word_BOOL", "key_word_IF", "key_word_ELSE",
+  "key_word_CHAR", "key_word_BOOL", "key_word_IF", "key_word_ELSE",
   "key_word_FOR", "key_word_RANGE", "key_word_IN", "key_word_WHILE", "IDF",
   "virgule", "key_word_ASSIGNMENT", "openSquareBracket",
   "closeSquareBracket", "openBracket", "closeBracket", "colon",
   "logicalOperand", "opr_ar", "opr_ari", "key_word_NOT",
   "comparisionOperand", "ind", "newLine", "CST_INT", "CST_FLOAT",
-  "CST_STRING", "CST_BOOL", "comment", "$accept", "Start",
-  "declarationList", "declaration", "case", "type", "VALUE", "ListIDF",
-  "instruction", "ListInst", "inst_ASSIGNMENT", "inst_if", "inst_while",
-  "inst_for", "version1", "version2", "Bloc", "cond", "expression",
+  "CST_CHAR", "CST_BOOL", "comment", "$accept", "Start", "declarationList",
+  "declaration", "case", "type", "VALUE", "ListIDF", "instruction",
+  "ListInst", "inst_ASSIGNMENT", "inst_if", "inst_while", "inst_for",
+  "version1", "version2", "Bloc", "cond", "expression",
   "expressionWithBrackets", "opr", "operand", 0
 };
 #endif
@@ -1500,7 +1500,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 42 "synt.y"
-    {strcpy(stockedType,"string");;}
+    {strcpy(stockedType,"char");;}
     break;
 
   case 13:
@@ -1528,7 +1528,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 47 "synt.y"
-    {strcpy(stockedType,"string");;}
+    {strcpy(stockedType,"char");;}
     break;
 
   case 17:
