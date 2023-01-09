@@ -1,0 +1,1383 @@
+State 6 conflicts: 1 shift/reduce
+State 34 conflicts: 1 shift/reduce
+State 98 conflicts: 3 reduce/reduce
+
+
+Grammar
+
+    0 $accept: Start $end
+
+    1 Start: declarationList ListInst
+    2      | newLines declarationList ListInst
+
+    3 declarationList: declaration newLines declarationList
+    4                | declaration newLines
+    5                | newLines declaration
+    6                | comment newLines declarationList
+    7                | newLines comment declarationList
+
+    8 newLines: newLine newLines
+    9         | newLine
+
+   10 declaration: type IDF ListIDF
+   11            | IDF key_word_ASSIGNMENT VALUE
+   12            | type case
+
+   13 case: IDF openSquareBracket CST_INT closeSquareBracket
+
+   14 type: key_word_INTEGER
+   15     | key_word_FLOAT
+   16     | key_word_CHAR
+   17     | key_word_BOOL
+
+   18 VALUE: CST_INT
+   19      | CST_FLOAT
+   20      | CST_CHAR
+   21      | CST_BOOL
+
+   22 ListIDF: virgule ListIDF
+   23        | /* empty */
+
+   24 ListInst: instruction newLine ListInst
+   25         | instruction
+
+   26 instruction: inst_ASSIGNMENT
+   27            | inst_if
+   28            | inst_while
+   29            | inst_for
+
+   30 inst_ASSIGNMENT: IDF key_word_ASSIGNMENT operand
+   31                | IDF key_word_ASSIGNMENT expression
+   32                | case key_word_ASSIGNMENT operand
+   33                | case key_word_ASSIGNMENT expression
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket cond closeBracket colon newLine Bloc
+
+   36 inst_while: key_word_WHILE openBracket cond closeBracket colon newLine Bloc
+
+   37 inst_for: for1
+   38         | for2
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc
+
+   40 for2: key_word_FOR IDF key_word_IN IDF colon newLine Bloc
+
+   41 Bloc: ind instruction newLine Bloc
+   42     | /* empty */
+
+   43 cond: operand logicalOperand operand
+   44     | operand comparisionOperand operand
+   45     | key_word_NOT operand
+   46     | key_word_NOT expressionWithBrackets
+
+   47 expression: operand opr operand
+   48           | operand opr expression
+   49           | operand opr expressionWithBrackets
+   50           | expressionWithBrackets
+
+   51 expressionWithBrackets: openBracket expression closeBracket
+
+   52 opr: opr_ar
+   53    | opr_ari
+
+   54 operand: VALUE
+   55        | IDF
+   56        | case
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+key_word_INTEGER (258) 14
+key_word_FLOAT (259) 15
+key_word_CHAR (260) 16
+key_word_BOOL (261) 17
+key_word_IF (262) 34 35
+key_word_ELSE (263) 34
+key_word_FOR (264) 39 40
+key_word_RANGE (265) 39
+key_word_IN (266) 40
+key_word_WHILE (267) 36
+IDF (268) 10 11 13 30 31 39 40 55
+virgule (269) 22 39
+key_word_ASSIGNMENT (270) 11 30 31 32 33
+openSquareBracket (271) 13
+closeSquareBracket (272) 13
+openBracket (273) 34 35 36 39 51
+closeBracket (274) 34 35 36 39 51
+colon (275) 34 35 36 39 40
+logicalOperand (276) 43
+opr_ar (277) 52
+opr_ari (278) 53
+key_word_NOT (279) 45 46
+comparisionOperand (280) 44
+ind (281) 41
+newLine (282) 8 9 24 34 35 36 39 40 41
+CST_INT (283) 13 18
+CST_FLOAT (284) 19
+CST_CHAR (285) 20
+CST_BOOL (286) 21
+comment (287) 6 7
+
+
+Nonterminals, with rules where they appear
+
+$accept (33)
+    on left: 0
+Start (34)
+    on left: 1 2, on right: 0
+declarationList (35)
+    on left: 3 4 5 6 7, on right: 1 2 3 6 7
+newLines (36)
+    on left: 8 9, on right: 2 3 4 5 6 7 8
+declaration (37)
+    on left: 10 11 12, on right: 3 4 5
+case (38)
+    on left: 13, on right: 12 32 33 56
+type (39)
+    on left: 14 15 16 17, on right: 10 12
+VALUE (40)
+    on left: 18 19 20 21, on right: 11 39 54
+ListIDF (41)
+    on left: 22 23, on right: 10 22
+ListInst (42)
+    on left: 24 25, on right: 1 2 24
+instruction (43)
+    on left: 26 27 28 29, on right: 24 25 41
+inst_ASSIGNMENT (44)
+    on left: 30 31 32 33, on right: 26
+inst_if (45)
+    on left: 34 35, on right: 27
+inst_while (46)
+    on left: 36, on right: 28
+inst_for (47)
+    on left: 37 38, on right: 29
+for1 (48)
+    on left: 39, on right: 37
+for2 (49)
+    on left: 40, on right: 38
+Bloc (50)
+    on left: 41 42, on right: 34 35 36 39 40 41
+cond (51)
+    on left: 43 44 45 46, on right: 34 35 36
+expression (52)
+    on left: 47 48 49 50, on right: 31 33 48 51
+expressionWithBrackets (53)
+    on left: 51, on right: 46 49 50
+opr (54)
+    on left: 52 53, on right: 47 48 49
+operand (55)
+    on left: 54 55 56, on right: 30 32 43 44 45 47 48 49
+
+
+state 0
+
+    0 $accept: . Start $end
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 7
+
+    Start            go to state 8
+    declarationList  go to state 9
+    newLines         go to state 10
+    declaration      go to state 11
+    type             go to state 12
+
+
+state 1
+
+   14 type: key_word_INTEGER .
+
+    $default  reduce using rule 14 (type)
+
+
+state 2
+
+   15 type: key_word_FLOAT .
+
+    $default  reduce using rule 15 (type)
+
+
+state 3
+
+   16 type: key_word_CHAR .
+
+    $default  reduce using rule 16 (type)
+
+
+state 4
+
+   17 type: key_word_BOOL .
+
+    $default  reduce using rule 17 (type)
+
+
+state 5
+
+   11 declaration: IDF . key_word_ASSIGNMENT VALUE
+
+    key_word_ASSIGNMENT  shift, and go to state 13
+
+
+state 6
+
+    8 newLines: newLine . newLines
+    9         | newLine .
+
+    newLine  shift, and go to state 6
+
+    newLine   [reduce using rule 9 (newLines)]
+    $default  reduce using rule 9 (newLines)
+
+    newLines  go to state 14
+
+
+state 7
+
+    6 declarationList: comment . newLines declarationList
+
+    newLine  shift, and go to state 6
+
+    newLines  go to state 15
+
+
+state 8
+
+    0 $accept: Start . $end
+
+    $end  shift, and go to state 16
+
+
+state 9
+
+    1 Start: declarationList . ListInst
+
+    key_word_IF     shift, and go to state 17
+    key_word_FOR    shift, and go to state 18
+    key_word_WHILE  shift, and go to state 19
+    IDF             shift, and go to state 20
+
+    case             go to state 21
+    ListInst         go to state 22
+    instruction      go to state 23
+    inst_ASSIGNMENT  go to state 24
+    inst_if          go to state 25
+    inst_while       go to state 26
+    inst_for         go to state 27
+    for1             go to state 28
+    for2             go to state 29
+
+
+state 10
+
+    2 Start: newLines . declarationList ListInst
+    5 declarationList: newLines . declaration
+    7                | newLines . comment declarationList
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 30
+
+    declarationList  go to state 31
+    newLines         go to state 32
+    declaration      go to state 33
+    type             go to state 12
+
+
+state 11
+
+    3 declarationList: declaration . newLines declarationList
+    4                | declaration . newLines
+
+    newLine  shift, and go to state 6
+
+    newLines  go to state 34
+
+
+state 12
+
+   10 declaration: type . IDF ListIDF
+   12            | type . case
+
+    IDF  shift, and go to state 35
+
+    case  go to state 36
+
+
+state 13
+
+   11 declaration: IDF key_word_ASSIGNMENT . VALUE
+
+    CST_INT    shift, and go to state 37
+    CST_FLOAT  shift, and go to state 38
+    CST_CHAR   shift, and go to state 39
+    CST_BOOL   shift, and go to state 40
+
+    VALUE  go to state 41
+
+
+state 14
+
+    8 newLines: newLine newLines .
+
+    $default  reduce using rule 8 (newLines)
+
+
+state 15
+
+    6 declarationList: comment newLines . declarationList
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 7
+
+    declarationList  go to state 42
+    newLines         go to state 32
+    declaration      go to state 11
+    type             go to state 12
+
+
+state 16
+
+    0 $accept: Start $end .
+
+    $default  accept
+
+
+state 17
+
+   34 inst_if: key_word_IF . openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF . openBracket cond closeBracket colon newLine Bloc
+
+    openBracket  shift, and go to state 43
+
+
+state 18
+
+   39 for1: key_word_FOR . IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc
+   40 for2: key_word_FOR . IDF key_word_IN IDF colon newLine Bloc
+
+    IDF  shift, and go to state 44
+
+
+state 19
+
+   36 inst_while: key_word_WHILE . openBracket cond closeBracket colon newLine Bloc
+
+    openBracket  shift, and go to state 45
+
+
+state 20
+
+   13 case: IDF . openSquareBracket CST_INT closeSquareBracket
+   30 inst_ASSIGNMENT: IDF . key_word_ASSIGNMENT operand
+   31                | IDF . key_word_ASSIGNMENT expression
+
+    key_word_ASSIGNMENT  shift, and go to state 46
+    openSquareBracket    shift, and go to state 47
+
+
+state 21
+
+   32 inst_ASSIGNMENT: case . key_word_ASSIGNMENT operand
+   33                | case . key_word_ASSIGNMENT expression
+
+    key_word_ASSIGNMENT  shift, and go to state 48
+
+
+state 22
+
+    1 Start: declarationList ListInst .
+
+    $default  reduce using rule 1 (Start)
+
+
+state 23
+
+   24 ListInst: instruction . newLine ListInst
+   25         | instruction .
+
+    newLine  shift, and go to state 49
+
+    $default  reduce using rule 25 (ListInst)
+
+
+state 24
+
+   26 instruction: inst_ASSIGNMENT .
+
+    $default  reduce using rule 26 (instruction)
+
+
+state 25
+
+   27 instruction: inst_if .
+
+    $default  reduce using rule 27 (instruction)
+
+
+state 26
+
+   28 instruction: inst_while .
+
+    $default  reduce using rule 28 (instruction)
+
+
+state 27
+
+   29 instruction: inst_for .
+
+    $default  reduce using rule 29 (instruction)
+
+
+state 28
+
+   37 inst_for: for1 .
+
+    $default  reduce using rule 37 (inst_for)
+
+
+state 29
+
+   38 inst_for: for2 .
+
+    $default  reduce using rule 38 (inst_for)
+
+
+state 30
+
+    6 declarationList: comment . newLines declarationList
+    7                | newLines comment . declarationList
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 7
+
+    declarationList  go to state 50
+    newLines         go to state 51
+    declaration      go to state 11
+    type             go to state 12
+
+
+state 31
+
+    2 Start: newLines declarationList . ListInst
+
+    key_word_IF     shift, and go to state 17
+    key_word_FOR    shift, and go to state 18
+    key_word_WHILE  shift, and go to state 19
+    IDF             shift, and go to state 20
+
+    case             go to state 21
+    ListInst         go to state 52
+    instruction      go to state 23
+    inst_ASSIGNMENT  go to state 24
+    inst_if          go to state 25
+    inst_while       go to state 26
+    inst_for         go to state 27
+    for1             go to state 28
+    for2             go to state 29
+
+
+state 32
+
+    5 declarationList: newLines . declaration
+    7                | newLines . comment declarationList
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    comment           shift, and go to state 53
+
+    declaration  go to state 54
+    type         go to state 12
+
+
+state 33
+
+    3 declarationList: declaration . newLines declarationList
+    4                | declaration . newLines
+    5                | newLines declaration .
+
+    newLine  shift, and go to state 6
+
+    $default  reduce using rule 5 (declarationList)
+
+    newLines  go to state 34
+
+
+state 34
+
+    3 declarationList: declaration newLines . declarationList
+    4                | declaration newLines .
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 7
+
+    IDF       [reduce using rule 4 (declarationList)]
+    $default  reduce using rule 4 (declarationList)
+
+    declarationList  go to state 55
+    newLines         go to state 32
+    declaration      go to state 11
+    type             go to state 12
+
+
+state 35
+
+   10 declaration: type IDF . ListIDF
+   13 case: IDF . openSquareBracket CST_INT closeSquareBracket
+
+    virgule            shift, and go to state 56
+    openSquareBracket  shift, and go to state 47
+
+    $default  reduce using rule 23 (ListIDF)
+
+    ListIDF  go to state 57
+
+
+state 36
+
+   12 declaration: type case .
+
+    $default  reduce using rule 12 (declaration)
+
+
+state 37
+
+   18 VALUE: CST_INT .
+
+    $default  reduce using rule 18 (VALUE)
+
+
+state 38
+
+   19 VALUE: CST_FLOAT .
+
+    $default  reduce using rule 19 (VALUE)
+
+
+state 39
+
+   20 VALUE: CST_CHAR .
+
+    $default  reduce using rule 20 (VALUE)
+
+
+state 40
+
+   21 VALUE: CST_BOOL .
+
+    $default  reduce using rule 21 (VALUE)
+
+
+state 41
+
+   11 declaration: IDF key_word_ASSIGNMENT VALUE .
+
+    $default  reduce using rule 11 (declaration)
+
+
+state 42
+
+    6 declarationList: comment newLines declarationList .
+
+    $default  reduce using rule 6 (declarationList)
+
+
+state 43
+
+   34 inst_if: key_word_IF openBracket . cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket . cond closeBracket colon newLine Bloc
+
+    IDF           shift, and go to state 58
+    key_word_NOT  shift, and go to state 59
+    CST_INT       shift, and go to state 37
+    CST_FLOAT     shift, and go to state 38
+    CST_CHAR      shift, and go to state 39
+    CST_BOOL      shift, and go to state 40
+
+    case     go to state 60
+    VALUE    go to state 61
+    cond     go to state 62
+    operand  go to state 63
+
+
+state 44
+
+   39 for1: key_word_FOR IDF . key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc
+   40 for2: key_word_FOR IDF . key_word_IN IDF colon newLine Bloc
+
+    key_word_RANGE  shift, and go to state 64
+    key_word_IN     shift, and go to state 65
+
+
+state 45
+
+   36 inst_while: key_word_WHILE openBracket . cond closeBracket colon newLine Bloc
+
+    IDF           shift, and go to state 58
+    key_word_NOT  shift, and go to state 59
+    CST_INT       shift, and go to state 37
+    CST_FLOAT     shift, and go to state 38
+    CST_CHAR      shift, and go to state 39
+    CST_BOOL      shift, and go to state 40
+
+    case     go to state 60
+    VALUE    go to state 61
+    cond     go to state 66
+    operand  go to state 63
+
+
+state 46
+
+   30 inst_ASSIGNMENT: IDF key_word_ASSIGNMENT . operand
+   31                | IDF key_word_ASSIGNMENT . expression
+
+    IDF          shift, and go to state 58
+    openBracket  shift, and go to state 67
+    CST_INT      shift, and go to state 37
+    CST_FLOAT    shift, and go to state 38
+    CST_CHAR     shift, and go to state 39
+    CST_BOOL     shift, and go to state 40
+
+    case                    go to state 60
+    VALUE                   go to state 61
+    expression              go to state 68
+    expressionWithBrackets  go to state 69
+    operand                 go to state 70
+
+
+state 47
+
+   13 case: IDF openSquareBracket . CST_INT closeSquareBracket
+
+    CST_INT  shift, and go to state 71
+
+
+state 48
+
+   32 inst_ASSIGNMENT: case key_word_ASSIGNMENT . operand
+   33                | case key_word_ASSIGNMENT . expression
+
+    IDF          shift, and go to state 58
+    openBracket  shift, and go to state 67
+    CST_INT      shift, and go to state 37
+    CST_FLOAT    shift, and go to state 38
+    CST_CHAR     shift, and go to state 39
+    CST_BOOL     shift, and go to state 40
+
+    case                    go to state 60
+    VALUE                   go to state 61
+    expression              go to state 72
+    expressionWithBrackets  go to state 69
+    operand                 go to state 73
+
+
+state 49
+
+   24 ListInst: instruction newLine . ListInst
+
+    key_word_IF     shift, and go to state 17
+    key_word_FOR    shift, and go to state 18
+    key_word_WHILE  shift, and go to state 19
+    IDF             shift, and go to state 20
+
+    case             go to state 21
+    ListInst         go to state 74
+    instruction      go to state 23
+    inst_ASSIGNMENT  go to state 24
+    inst_if          go to state 25
+    inst_while       go to state 26
+    inst_for         go to state 27
+    for1             go to state 28
+    for2             go to state 29
+
+
+state 50
+
+    7 declarationList: newLines comment declarationList .
+
+    $default  reduce using rule 7 (declarationList)
+
+
+state 51
+
+    5 declarationList: newLines . declaration
+    6                | comment newLines . declarationList
+    7                | newLines . comment declarationList
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 30
+
+    declarationList  go to state 42
+    newLines         go to state 32
+    declaration      go to state 33
+    type             go to state 12
+
+
+state 52
+
+    2 Start: newLines declarationList ListInst .
+
+    $default  reduce using rule 2 (Start)
+
+
+state 53
+
+    7 declarationList: newLines comment . declarationList
+
+    key_word_INTEGER  shift, and go to state 1
+    key_word_FLOAT    shift, and go to state 2
+    key_word_CHAR     shift, and go to state 3
+    key_word_BOOL     shift, and go to state 4
+    IDF               shift, and go to state 5
+    newLine           shift, and go to state 6
+    comment           shift, and go to state 7
+
+    declarationList  go to state 50
+    newLines         go to state 32
+    declaration      go to state 11
+    type             go to state 12
+
+
+state 54
+
+    5 declarationList: newLines declaration .
+
+    $default  reduce using rule 5 (declarationList)
+
+
+state 55
+
+    3 declarationList: declaration newLines declarationList .
+
+    $default  reduce using rule 3 (declarationList)
+
+
+state 56
+
+   22 ListIDF: virgule . ListIDF
+
+    virgule  shift, and go to state 56
+
+    $default  reduce using rule 23 (ListIDF)
+
+    ListIDF  go to state 75
+
+
+state 57
+
+   10 declaration: type IDF ListIDF .
+
+    $default  reduce using rule 10 (declaration)
+
+
+state 58
+
+   13 case: IDF . openSquareBracket CST_INT closeSquareBracket
+   55 operand: IDF .
+
+    openSquareBracket  shift, and go to state 47
+
+    $default  reduce using rule 55 (operand)
+
+
+state 59
+
+   45 cond: key_word_NOT . operand
+   46     | key_word_NOT . expressionWithBrackets
+
+    IDF          shift, and go to state 58
+    openBracket  shift, and go to state 67
+    CST_INT      shift, and go to state 37
+    CST_FLOAT    shift, and go to state 38
+    CST_CHAR     shift, and go to state 39
+    CST_BOOL     shift, and go to state 40
+
+    case                    go to state 60
+    VALUE                   go to state 61
+    expressionWithBrackets  go to state 76
+    operand                 go to state 77
+
+
+state 60
+
+   56 operand: case .
+
+    $default  reduce using rule 56 (operand)
+
+
+state 61
+
+   54 operand: VALUE .
+
+    $default  reduce using rule 54 (operand)
+
+
+state 62
+
+   34 inst_if: key_word_IF openBracket cond . closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket cond . closeBracket colon newLine Bloc
+
+    closeBracket  shift, and go to state 78
+
+
+state 63
+
+   43 cond: operand . logicalOperand operand
+   44     | operand . comparisionOperand operand
+
+    logicalOperand      shift, and go to state 79
+    comparisionOperand  shift, and go to state 80
+
+
+state 64
+
+   39 for1: key_word_FOR IDF key_word_RANGE . openBracket VALUE virgule VALUE closeBracket colon newLine Bloc
+
+    openBracket  shift, and go to state 81
+
+
+state 65
+
+   40 for2: key_word_FOR IDF key_word_IN . IDF colon newLine Bloc
+
+    IDF  shift, and go to state 82
+
+
+state 66
+
+   36 inst_while: key_word_WHILE openBracket cond . closeBracket colon newLine Bloc
+
+    closeBracket  shift, and go to state 83
+
+
+state 67
+
+   51 expressionWithBrackets: openBracket . expression closeBracket
+
+    IDF          shift, and go to state 58
+    openBracket  shift, and go to state 67
+    CST_INT      shift, and go to state 37
+    CST_FLOAT    shift, and go to state 38
+    CST_CHAR     shift, and go to state 39
+    CST_BOOL     shift, and go to state 40
+
+    case                    go to state 60
+    VALUE                   go to state 61
+    expression              go to state 84
+    expressionWithBrackets  go to state 69
+    operand                 go to state 85
+
+
+state 68
+
+   31 inst_ASSIGNMENT: IDF key_word_ASSIGNMENT expression .
+
+    $default  reduce using rule 31 (inst_ASSIGNMENT)
+
+
+state 69
+
+   50 expression: expressionWithBrackets .
+
+    $default  reduce using rule 50 (expression)
+
+
+state 70
+
+   30 inst_ASSIGNMENT: IDF key_word_ASSIGNMENT operand .
+   47 expression: operand . opr operand
+   48           | operand . opr expression
+   49           | operand . opr expressionWithBrackets
+
+    opr_ar   shift, and go to state 86
+    opr_ari  shift, and go to state 87
+
+    $default  reduce using rule 30 (inst_ASSIGNMENT)
+
+    opr  go to state 88
+
+
+state 71
+
+   13 case: IDF openSquareBracket CST_INT . closeSquareBracket
+
+    closeSquareBracket  shift, and go to state 89
+
+
+state 72
+
+   33 inst_ASSIGNMENT: case key_word_ASSIGNMENT expression .
+
+    $default  reduce using rule 33 (inst_ASSIGNMENT)
+
+
+state 73
+
+   32 inst_ASSIGNMENT: case key_word_ASSIGNMENT operand .
+   47 expression: operand . opr operand
+   48           | operand . opr expression
+   49           | operand . opr expressionWithBrackets
+
+    opr_ar   shift, and go to state 86
+    opr_ari  shift, and go to state 87
+
+    $default  reduce using rule 32 (inst_ASSIGNMENT)
+
+    opr  go to state 88
+
+
+state 74
+
+   24 ListInst: instruction newLine ListInst .
+
+    $default  reduce using rule 24 (ListInst)
+
+
+state 75
+
+   22 ListIDF: virgule ListIDF .
+
+    $default  reduce using rule 22 (ListIDF)
+
+
+state 76
+
+   46 cond: key_word_NOT expressionWithBrackets .
+
+    $default  reduce using rule 46 (cond)
+
+
+state 77
+
+   45 cond: key_word_NOT operand .
+
+    $default  reduce using rule 45 (cond)
+
+
+state 78
+
+   34 inst_if: key_word_IF openBracket cond closeBracket . colon newLine Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket cond closeBracket . colon newLine Bloc
+
+    colon  shift, and go to state 90
+
+
+state 79
+
+   43 cond: operand logicalOperand . operand
+
+    IDF        shift, and go to state 58
+    CST_INT    shift, and go to state 37
+    CST_FLOAT  shift, and go to state 38
+    CST_CHAR   shift, and go to state 39
+    CST_BOOL   shift, and go to state 40
+
+    case     go to state 60
+    VALUE    go to state 61
+    operand  go to state 91
+
+
+state 80
+
+   44 cond: operand comparisionOperand . operand
+
+    IDF        shift, and go to state 58
+    CST_INT    shift, and go to state 37
+    CST_FLOAT  shift, and go to state 38
+    CST_CHAR   shift, and go to state 39
+    CST_BOOL   shift, and go to state 40
+
+    case     go to state 60
+    VALUE    go to state 61
+    operand  go to state 92
+
+
+state 81
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket . VALUE virgule VALUE closeBracket colon newLine Bloc
+
+    CST_INT    shift, and go to state 37
+    CST_FLOAT  shift, and go to state 38
+    CST_CHAR   shift, and go to state 39
+    CST_BOOL   shift, and go to state 40
+
+    VALUE  go to state 93
+
+
+state 82
+
+   40 for2: key_word_FOR IDF key_word_IN IDF . colon newLine Bloc
+
+    colon  shift, and go to state 94
+
+
+state 83
+
+   36 inst_while: key_word_WHILE openBracket cond closeBracket . colon newLine Bloc
+
+    colon  shift, and go to state 95
+
+
+state 84
+
+   51 expressionWithBrackets: openBracket expression . closeBracket
+
+    closeBracket  shift, and go to state 96
+
+
+state 85
+
+   47 expression: operand . opr operand
+   48           | operand . opr expression
+   49           | operand . opr expressionWithBrackets
+
+    opr_ar   shift, and go to state 86
+    opr_ari  shift, and go to state 87
+
+    opr  go to state 88
+
+
+state 86
+
+   52 opr: opr_ar .
+
+    $default  reduce using rule 52 (opr)
+
+
+state 87
+
+   53 opr: opr_ari .
+
+    $default  reduce using rule 53 (opr)
+
+
+state 88
+
+   47 expression: operand opr . operand
+   48           | operand opr . expression
+   49           | operand opr . expressionWithBrackets
+
+    IDF          shift, and go to state 58
+    openBracket  shift, and go to state 67
+    CST_INT      shift, and go to state 37
+    CST_FLOAT    shift, and go to state 38
+    CST_CHAR     shift, and go to state 39
+    CST_BOOL     shift, and go to state 40
+
+    case                    go to state 60
+    VALUE                   go to state 61
+    expression              go to state 97
+    expressionWithBrackets  go to state 98
+    operand                 go to state 99
+
+
+state 89
+
+   13 case: IDF openSquareBracket CST_INT closeSquareBracket .
+
+    $default  reduce using rule 13 (case)
+
+
+state 90
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon . newLine Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket cond closeBracket colon . newLine Bloc
+
+    newLine  shift, and go to state 100
+
+
+state 91
+
+   43 cond: operand logicalOperand operand .
+
+    $default  reduce using rule 43 (cond)
+
+
+state 92
+
+   44 cond: operand comparisionOperand operand .
+
+    $default  reduce using rule 44 (cond)
+
+
+state 93
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE . virgule VALUE closeBracket colon newLine Bloc
+
+    virgule  shift, and go to state 101
+
+
+state 94
+
+   40 for2: key_word_FOR IDF key_word_IN IDF colon . newLine Bloc
+
+    newLine  shift, and go to state 102
+
+
+state 95
+
+   36 inst_while: key_word_WHILE openBracket cond closeBracket colon . newLine Bloc
+
+    newLine  shift, and go to state 103
+
+
+state 96
+
+   51 expressionWithBrackets: openBracket expression closeBracket .
+
+    $default  reduce using rule 51 (expressionWithBrackets)
+
+
+state 97
+
+   48 expression: operand opr expression .
+
+    $default  reduce using rule 48 (expression)
+
+
+state 98
+
+   49 expression: operand opr expressionWithBrackets .
+   50           | expressionWithBrackets .
+
+    $end          reduce using rule 49 (expression)
+    $end          [reduce using rule 50 (expression)]
+    closeBracket  reduce using rule 49 (expression)
+    closeBracket  [reduce using rule 50 (expression)]
+    newLine       reduce using rule 49 (expression)
+    newLine       [reduce using rule 50 (expression)]
+    $default      reduce using rule 49 (expression)
+
+
+state 99
+
+   47 expression: operand . opr operand
+   47           | operand opr operand .
+   48           | operand . opr expression
+   49           | operand . opr expressionWithBrackets
+
+    opr_ar   shift, and go to state 86
+    opr_ari  shift, and go to state 87
+
+    $default  reduce using rule 47 (expression)
+
+    opr  go to state 88
+
+
+state 100
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine . Bloc key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket cond closeBracket colon newLine . Bloc
+
+    ind  shift, and go to state 104
+
+    $default  reduce using rule 42 (Bloc)
+
+    Bloc  go to state 105
+
+
+state 101
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule . VALUE closeBracket colon newLine Bloc
+
+    CST_INT    shift, and go to state 37
+    CST_FLOAT  shift, and go to state 38
+    CST_CHAR   shift, and go to state 39
+    CST_BOOL   shift, and go to state 40
+
+    VALUE  go to state 106
+
+
+state 102
+
+   40 for2: key_word_FOR IDF key_word_IN IDF colon newLine . Bloc
+
+    ind  shift, and go to state 104
+
+    $default  reduce using rule 42 (Bloc)
+
+    Bloc  go to state 107
+
+
+state 103
+
+   36 inst_while: key_word_WHILE openBracket cond closeBracket colon newLine . Bloc
+
+    ind  shift, and go to state 104
+
+    $default  reduce using rule 42 (Bloc)
+
+    Bloc  go to state 108
+
+
+state 104
+
+   41 Bloc: ind . instruction newLine Bloc
+
+    key_word_IF     shift, and go to state 17
+    key_word_FOR    shift, and go to state 18
+    key_word_WHILE  shift, and go to state 19
+    IDF             shift, and go to state 20
+
+    case             go to state 21
+    instruction      go to state 109
+    inst_ASSIGNMENT  go to state 24
+    inst_if          go to state 25
+    inst_while       go to state 26
+    inst_for         go to state 27
+    for1             go to state 28
+    for2             go to state 29
+
+
+state 105
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine Bloc . key_word_ELSE colon newLine Bloc
+   35        | key_word_IF openBracket cond closeBracket colon newLine Bloc .
+
+    key_word_ELSE  shift, and go to state 110
+
+    $default  reduce using rule 35 (inst_if)
+
+
+state 106
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE . closeBracket colon newLine Bloc
+
+    closeBracket  shift, and go to state 111
+
+
+state 107
+
+   40 for2: key_word_FOR IDF key_word_IN IDF colon newLine Bloc .
+
+    $default  reduce using rule 40 (for2)
+
+
+state 108
+
+   36 inst_while: key_word_WHILE openBracket cond closeBracket colon newLine Bloc .
+
+    $default  reduce using rule 36 (inst_while)
+
+
+state 109
+
+   41 Bloc: ind instruction . newLine Bloc
+
+    newLine  shift, and go to state 112
+
+
+state 110
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE . colon newLine Bloc
+
+    colon  shift, and go to state 113
+
+
+state 111
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket . colon newLine Bloc
+
+    colon  shift, and go to state 114
+
+
+state 112
+
+   41 Bloc: ind instruction newLine . Bloc
+
+    ind  shift, and go to state 104
+
+    $default  reduce using rule 42 (Bloc)
+
+    Bloc  go to state 115
+
+
+state 113
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon . newLine Bloc
+
+    newLine  shift, and go to state 116
+
+
+state 114
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon . newLine Bloc
+
+    newLine  shift, and go to state 117
+
+
+state 115
+
+   41 Bloc: ind instruction newLine Bloc .
+
+    $default  reduce using rule 41 (Bloc)
+
+
+state 116
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine . Bloc
+
+    ind  shift, and go to state 104
+
+    $default  reduce using rule 42 (Bloc)
+
+    Bloc  go to state 118
+
+
+state 117
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine . Bloc
+
+    ind  shift, and go to state 104
+
+    $default  reduce using rule 42 (Bloc)
+
+    Bloc  go to state 119
+
+
+state 118
+
+   34 inst_if: key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc .
+
+    $default  reduce using rule 34 (inst_if)
+
+
+state 119
+
+   39 for1: key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc .
+
+    $default  reduce using rule 39 (for1)

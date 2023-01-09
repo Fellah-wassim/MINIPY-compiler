@@ -79,7 +79,9 @@ inst_while : key_word_WHILE openBracket cond closeBracket colon newLine Bloc
 inst_for : for1 
 	| for2
 ;
-for1 : key_word_FOR IDF key_word_RANGE openBracket VALUE virgule VALUE closeBracket colon newLine Bloc {if(atoi($5)>atoi($7)){ printf ("Semantic error: upper bound lower than the lower bound in the for loop \n");error=1; YYERROR;};}
+for1 : key_word_FOR IDF InRange colon newLine Bloc 
+;
+InRange : key_word_RANGE openBracket VALUE virgule VALUE closeBracket {if(atoi($3)>atoi($5)){ printf ("Semantic error: upper bound lower than the lower bound in in line %d colonne %d \n",lineNumber,col);error=1; YYERROR;};}
 ;
 for2 : key_word_FOR IDF key_word_IN IDF colon newLine Bloc
 ;
