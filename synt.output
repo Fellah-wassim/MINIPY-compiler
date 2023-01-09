@@ -1,4 +1,3 @@
-State 6 conflicts: 1 shift/reduce
 State 34 conflicts: 1 shift/reduce
 State 76 conflicts: 5 reduce/reduce
 State 102 conflicts: 3 reduce/reduce
@@ -237,9 +236,8 @@ state 6
     8 newLines: newLine . newLines
     9         | newLine .
 
-    newLine  shift, and go to state 6
+    newLine  error (nonassociative)
 
-    newLine   [reduce using rule 9 (newLines)]
     $default  reduce using rule 9 (newLines)
 
     newLines  go to state 14

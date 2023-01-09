@@ -20,8 +20,8 @@
 %token <str>CST_FLOAT <str>CST_CHAR <str>CST_BOOL comment
 
 %start Start
-%nonassoc comparisionOperand
-%right key_word_NOT
+%nonassoc comparisionOperand newLine   
+%right key_word_NOT 
 %left opr_ari opr_ar
 %type<str> declaration type  ListIDF VALUE case
 
