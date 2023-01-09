@@ -55,8 +55,9 @@ VALUE : CST_INT {strcpy(stockedType,"int"); strcpy($$,$1);}
 	| CST_CHAR {strcpy(stockedType,"char"); strcpy($$,$1);}
 	| CST_BOOL {strcpy(stockedType,"bool"); strcpy($$,$1);}
 ;
-ListIDF : virgule ListIDF
-  |
+ListIDF : virgule IDF ListIDF
+  |	virgule IDF	{if(doubleDeclaration($1)==0){insertType($1, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d colonne %d \n",$1,lineNumber,col); error=1; YYERROR;};}
+	|	
 ;
 ListInst: instruction newLine ListInst 
 	| instruction 
