@@ -16,7 +16,6 @@ else:
 for T in range (1,3):
     Hi=5
     M=4+Hi
-
 R=Z*T[3]
 while (Mai==true):
     E=4	

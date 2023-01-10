@@ -22,20 +22,20 @@
 %token <str>CST_FLOAT <str>CST_CHAR <str>CST_BOOL comment
 
 %start Start
-%nonassoc comparisionOperand newLine   
+%nonassoc comparisionOperand newLine    
 %right key_word_NOT 
 %left opr_ari opr_ar
 %type<str> declaration type  ListIDF VALUE case
 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
-| newLines declarationList ListInst
+	| newLines declarationList ListInst
 ;
 declarationList : declaration newLines declarationList
 	| declaration newLines 
-	| newLines declaration
 	| comment newLines declarationList
 	| newLines comment declarationList
+	| declaration
 ;
 newLines : newLine newLines
 	| newLine
@@ -59,7 +59,7 @@ VALUE : CST_INT {strcpy(stockedType,"int"); strcpy($$,$1);}
 ;
 ListIDF : virgule IDF ListIDF
   |	virgule IDF	{if(doubleDeclaration($1)==0){insertType($1, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d colonne %d \n",$1,lineNumber,col); error=1; YYERROR;};}
-	|	
+	|
 ;
 ListInst: instruction newLine ListInst 
 	| instruction 
