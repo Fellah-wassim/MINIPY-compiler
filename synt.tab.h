@@ -79,11 +79,11 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 12 "synt.y"
+#line 14 "synt.y"
  
-   int integer;
-   float reel;
-   char* str;
+	int integer;
+	float reel;
+	char* str;
 
 
 

@@ -1,6 +1,7 @@
 %{ 
 	#include "synt.tab.h"  //Get tokens from bison
 	#include"symbolTable.h"
+	#include"quad.h"
 	#include<stdio.h>
   #include<stdlib.h>
   #include<string.h>

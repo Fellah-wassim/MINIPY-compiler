@@ -15,6 +15,7 @@ typedef struct
 } STType;
 
 STType symbolTable[1000];
+
 int counterST = 0;
 
 //search function to see if the entity already exist in the symbol table
@@ -117,6 +118,7 @@ void insertValue(char entityName[], char valueAsString[], char type[])
     }
   }  
 }
+
 //function to display the symbol table
 void displaySymbolTable()
 {

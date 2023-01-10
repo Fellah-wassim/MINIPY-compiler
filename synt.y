@@ -7,12 +7,14 @@
 	char stockedType[10];
 	extern int lineNumber;
 	int error = 0;
+	int Qc = 0;
+	char temp [20]; 
 %}
 %union 
 { 
-   int integer;
-   float reel;
-   char* str;
+	int integer;
+	float reel;
+	char* str;
 }
 %token <str>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL <str>key_word_IF <str>key_word_ELSE <str>key_word_FOR 
 %token <str>key_word_RANGE <str>key_word_IN <str>key_word_WHILE <str>IDF <str>virgule <str>key_word_ASSIGNMENT  <str>openSquareBracket <str>closeSquareBracket <str>openBracket <str>closeBracket <str>colon
