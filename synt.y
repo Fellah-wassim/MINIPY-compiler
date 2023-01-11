@@ -52,6 +52,7 @@ newLines : newLine newLines
 ;
 
 declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
+	| type IDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
 	| IDF key_word_ASSIGNMENT VALUE {Quad(":=",$3,"",$1);} {insertValue($1,$3,stockedType); insertType($1, stockedType);}
 	| type case {insertType($1, stockedType);}
 ;
@@ -69,7 +70,6 @@ VALUE : CST_INT {strcpy(stockedType,"int"); strcpy($$,$1);}
 ;
 ListIDF : virgule IDF ListIDF
   |	virgule IDF	{if(doubleDeclaration($1)==0){insertType($1, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d colonne %d \n",$1,lineNumber,col); error=1; YYERROR;};}
-	|
 ;
 ListInst: instruction newLine ListInst 
 	| instruction 
