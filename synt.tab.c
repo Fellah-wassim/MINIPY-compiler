@@ -74,6 +74,8 @@
 	#include<stdlib.h>
 	#include<string.h>
 	#include<windows.h>
+	#include"symbolTable.h"
+	#include"quad.h"
 	extern int col ;
 	char stockedType[10];
 	extern int lineNumber;
@@ -84,7 +86,7 @@
 
 
 /* Line 189 of yacc.c  */
-#line 88 "synt.tab.c"
+#line 90 "synt.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -151,7 +153,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 15 "synt.y"
+#line 17 "synt.y"
  
 	int integer;
 	float reel;
@@ -167,7 +169,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 171 "synt.tab.c"
+#line 173 "synt.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -179,7 +181,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 183 "synt.tab.c"
+#line 185 "synt.tab.c"
 
 #ifdef short
 # undef short
@@ -488,12 +490,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    39,    39,    40,    42,    43,    44,    45,    46,    48,
-      49,    52,    53,    53,    54,    56,    58,    59,    60,    61,
-      63,    64,    65,    66,    68,    69,    70,    72,    73,    75,
-      76,    77,    78,    80,    81,    82,    83,    85,    86,    88,
-      90,    91,    93,    95,    97,    99,   100,   102,   103,   104,
-     105,   107,   108,   109,   110,   115,   116,   118,   119,   120
+       0,    41,    41,    42,    44,    45,    46,    47,    48,    50,
+      51,    54,    55,    55,    56,    58,    60,    61,    62,    63,
+      65,    66,    67,    68,    70,    71,    72,    74,    75,    77,
+      78,    79,    80,    82,    83,    84,    85,    87,    88,    90,
+      92,    93,    95,    97,    99,   101,   102,   104,   105,   106,
+     107,   109,   110,   111,   112,   117,   118,   120,   121,   122
 };
 #endif
 
@@ -1478,189 +1480,189 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 39 "synt.y"
+#line 41 "synt.y"
     {printf("Syntax correct \n"); YYACCEPT; ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 52 "synt.y"
+#line 54 "synt.y"
     {if(doubleDeclaration((yyvsp[(2) - (3)].str))==0){insertType((yyvsp[(2) - (3)].str), stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",(yyvsp[(2) - (3)].str),lineNumber-1); error=1; YYERROR;};;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 53 "synt.y"
+#line 55 "synt.y"
     {Quad(":=",(yyvsp[(3) - (3)].str),"",(yyvsp[(1) - (3)].str));;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 53 "synt.y"
+#line 55 "synt.y"
     {insertValue((yyvsp[(1) - (4)].str),(yyvsp[(3) - (4)].str),stockedType); insertType((yyvsp[(1) - (4)].str), stockedType);;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 54 "synt.y"
+#line 56 "synt.y"
     {insertType((yyvsp[(1) - (2)].str), stockedType);;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 58 "synt.y"
+#line 60 "synt.y"
     {strcpy(stockedType,"int");;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 59 "synt.y"
+#line 61 "synt.y"
     {strcpy(stockedType,"float");;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 60 "synt.y"
+#line 62 "synt.y"
     {strcpy(stockedType,"char");;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 61 "synt.y"
+#line 63 "synt.y"
     {strcpy(stockedType,"bool");;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 63 "synt.y"
+#line 65 "synt.y"
     {strcpy(stockedType,"int"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 64 "synt.y"
+#line 66 "synt.y"
     {strcpy(stockedType,"float"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 65 "synt.y"
+#line 67 "synt.y"
     {strcpy(stockedType,"char"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 66 "synt.y"
+#line 68 "synt.y"
     {strcpy(stockedType,"bool"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 69 "synt.y"
+#line 71 "synt.y"
     {if(doubleDeclaration((yyvsp[(1) - (2)].str))==0){insertType((yyvsp[(1) - (2)].str), stockedType);}else{printf("Semantic error: double declaration of %s, in line %d colonne %d \n",(yyvsp[(1) - (2)].str),lineNumber,col); error=1; YYERROR;};;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 80 "synt.y"
+#line 82 "synt.y"
     {Quad(":=",(yyvsp[(3) - (3)].str),"",(yyvsp[(1) - (3)].str));;}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 81 "synt.y"
+#line 83 "synt.y"
     {Quad("=:",(yyvsp[(3) - (3)].quadType).stocker,"",(yyvsp[(1) - (3)].str));;}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 82 "synt.y"
+#line 84 "synt.y"
     {;}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 95 "synt.y"
+#line 97 "synt.y"
     {if(atoi((yyvsp[(3) - (6)].str))>atoi((yyvsp[(5) - (6)].str))){ printf ("Semantic error: upper bound lower than the lower bound in in line %d colonne %d \n",lineNumber,col);error=1; YYERROR;};;}
     break;
 
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 107 "synt.y"
+#line 109 "synt.y"
     {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy((yyval.quadType).stocker,temp); strcpy((yyval.quadType).operator2,temp); Quad((yyvsp[(2) - (3)].str),(yyvsp[(1) - (3)].str),(yyvsp[(3) - (3)].quadType).operator2,temp);;}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 108 "synt.y"
+#line 110 "synt.y"
     {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy((yyval.quadType).stocker,temp); Quad((yyvsp[(2) - (5)].str),(yyvsp[(1) - (5)].str),(yyvsp[(4) - (5)].quadType).stocker,temp);;}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 109 "synt.y"
+#line 111 "synt.y"
     {strcpy((yyval.quadType).stocker,(yyvsp[(2) - (3)].quadType).stocker);;}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 110 "synt.y"
+#line 112 "synt.y"
     {strcpy((yyval.quadType).operator2,(yyvsp[(1) - (1)].str));;}
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 115 "synt.y"
+#line 117 "synt.y"
     { strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 116 "synt.y"
+#line 118 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 118 "synt.y"
+#line 120 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 119 "synt.y"
+#line 121 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1664 "synt.tab.c"
+#line 1666 "synt.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1872,7 +1874,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 122 "synt.y"
+#line 124 "synt.y"
 
 
 main()

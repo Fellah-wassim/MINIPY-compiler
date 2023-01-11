@@ -3,6 +3,8 @@
 	#include<stdlib.h>
 	#include<string.h>
 	#include<windows.h>
+	#include"symbolTable.h"
+	#include"quad.h"
 	extern int col ;
 	char stockedType[10];
 	extern int lineNumber;
