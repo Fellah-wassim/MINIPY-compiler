@@ -34,7 +34,7 @@
 %right key_word_NOT 
 %left opr_ari opr_ar
 %type<str> declaration type  ListIDF VALUE case opr operand
-%type<quadType> expression expressionWithBrackets
+%type<quadType> expression 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
 	| newLines declarationList ListInst
@@ -102,15 +102,12 @@ Bloc: ind instruction newLine Bloc
 cond: operand logicalOperand operand
 	| operand comparisionOperand operand
 	| key_word_NOT operand
-	| key_word_NOT expressionWithBrackets
+	| key_word_NOT openBracket expression closeBracket
 ;
 expression: operand opr expression {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2,$1,$3.operator2,temp);}
-	| operand opr expressionWithBrackets {}
-	| expressionWithBrackets {strcpy($$.stocker,$1.stocker);}
+	| operand opr openBracket expression closeBracket {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2,$1,$4.stocker,temp);}
+	| openBracket expression closeBracket {strcpy($$.stocker,$2.stocker);}
 	| operand  {strcpy($$.operator2,$1);}
-;
-expressionWithBrackets: openBracket expression closeBracket 
-{sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2.operation,$2.operator1,$2.operator2,temp); printf("------------%s========",$2.operator1);}
 ;
 opr: opr_ar { strcpy($$,$1);}
   | opr_ari {strcpy($$,$1);}
