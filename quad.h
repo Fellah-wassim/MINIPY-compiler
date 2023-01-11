@@ -57,7 +57,7 @@ void displayQuad()
   for(counter=0; counter<Qc; counter++)
   {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
-    printf("\n %d - ( %s  ,  %s  ,  %s  ,  %s )",counter, quadTable[counter].operation, quadTable[counter].operator1, quadTable[counter].operator2, quadTable[counter].stocker); 
+    printf("\n %d - ( %s  ,  %s  ,  %s  ,  %s )\n",counter, quadTable[counter].operation, quadTable[counter].operator1, quadTable[counter].operator2, quadTable[counter].stocker); 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
     printf("\n--------------------------------------------------------\n");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);

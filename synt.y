@@ -9,12 +9,20 @@
 	int error = 0;
 	int Qc = 0;
 	char temp [20]; 
+	int tempCounter = 1;
 %}
 %union 
 { 
 	int integer;
 	float reel;
 	char* str;
+ 	struct
+	{
+		char operation[20]; 
+		char operator1[20];   
+		char operator2[20];   
+		char stocker[20];  
+	} quadType; 
 }
 %token <str>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL <str>key_word_IF <str>key_word_ELSE <str>key_word_FOR 
 %token <str>key_word_RANGE <str>key_word_IN <str>key_word_WHILE <str>IDF <str>virgule <str>key_word_ASSIGNMENT  <str>openSquareBracket <str>closeSquareBracket <str>openBracket <str>closeBracket <str>colon
@@ -25,8 +33,8 @@
 %nonassoc comparisionOperand newLine    
 %right key_word_NOT 
 %left opr_ari opr_ar
-%type<str> declaration type  ListIDF VALUE case
-
+%type<str> declaration type  ListIDF VALUE case opr operand
+%type<quadType> expression expressionWithBrackets
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
 	| newLines declarationList ListInst
@@ -42,7 +50,7 @@ newLines : newLine newLines
 ;
 
 declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
-	| IDF key_word_ASSIGNMENT VALUE {insertValue($1,$3,stockedType); insertType($1, stockedType);}
+	| IDF key_word_ASSIGNMENT VALUE {Quad(":=",$3,"",$1);} {insertValue($1,$3,stockedType); insertType($1, stockedType);}
 	| type case {insertType($1, stockedType);}
 ;
 case : IDF openSquareBracket CST_INT closeSquareBracket 
@@ -69,9 +77,9 @@ instruction : inst_ASSIGNMENT
 	| inst_while
 	| inst_for 
 ;
-inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand
-	| IDF key_word_ASSIGNMENT expression
-	| case key_word_ASSIGNMENT operand
+inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand {Quad(":=",$3,"",$1);}
+	| IDF key_word_ASSIGNMENT expression 	{Quad("=:",$3.stocker,"",$1);}
+	| case key_word_ASSIGNMENT operand {}
 	| case key_word_ASSIGNMENT expression
 ;
 inst_if : key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
@@ -96,19 +104,20 @@ cond: operand logicalOperand operand
 	| key_word_NOT operand
 	| key_word_NOT expressionWithBrackets
 ;
-expression: operand opr operand
-	| operand opr expression
-	| operand opr expressionWithBrackets
-	| expressionWithBrackets
+expression: operand opr expression {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2,$1,$3.operator2,temp);}
+	| operand opr expressionWithBrackets {}
+	| expressionWithBrackets {strcpy($$.stocker,$1.stocker);}
+	| operand  {strcpy($$.operator2,$1);}
 ;
-expressionWithBrackets: openBracket expression closeBracket
+expressionWithBrackets: openBracket expression closeBracket 
+{sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2.operation,$2.operator1,$2.operator2,temp); printf("------------%s========",$2.operator1);}
 ;
-opr: opr_ar
-  | opr_ari
+opr: opr_ar { strcpy($$,$1);}
+  | opr_ari {strcpy($$,$1);}
 ;
-operand: VALUE
-	| IDF
-	| case
+operand: VALUE {strcpy($$,$1);}
+	| IDF	{strcpy($$,$1);}
+	| case 
 ;
 %%
 
@@ -116,6 +125,7 @@ main()
 {
   yyparse();
 	if(error==0){displaySymbolTable();} 
+		displayQuad();
 }
 yywrap()
 {}

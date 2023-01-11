@@ -79,16 +79,23 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 14 "synt.y"
+#line 15 "synt.y"
  
 	int integer;
 	float reel;
 	char* str;
+ 	struct
+	{
+		char operation[20]; 
+		char operator1[20];   
+		char operator2[20];   
+		char stocker[20];  
+	} quadType; 
 
 
 
 /* Line 1676 of yacc.c  */
-#line 92 "synt.tab.h"
+#line 99 "synt.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

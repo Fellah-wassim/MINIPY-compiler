@@ -768,12 +768,12 @@ YY_RULE_SETUP
 case 20:
 YY_RULE_SETUP
 #line 47 "lexical.l"
-{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetc operation 1 recognized  %s \n", yytext); return opr_ar;}
+{yylval.str=strdup(yytext); insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetc operation 1 recognized  %s \n", yytext); return opr_ar;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 48 "lexical.l"
-{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetic operation 2 recognized %s \n", yytext);  return opr_ari;} 
+{yylval.str=strdup(yytext); insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetic operation 2 recognized %s \n", yytext);  return opr_ari;} 
 	YY_BREAK
 case 22:
 YY_RULE_SETUP

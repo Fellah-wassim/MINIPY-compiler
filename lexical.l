@@ -44,8 +44,8 @@ bool	  		{insert(yytext,"key word","",0); yylval.str=strdup(yytext); col=col+str
 ","       	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("virgule recognized \n"); return virgule;}
 "#"(.)*   		{col=col+strlen(yytext); printf("comment recognized : %s \n",yytext); return comment;}
 {comparisionOperand} {insert(yytext,"separator","",0); col=col+strlen(yytext); printf("comparision operand recognized : %s \n",yytext); return comparisionOperand;}
-{op_ar} 		{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetc operation 1 recognized  %s \n", yytext); return opr_ar;}
-{op_ari}	 	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetic operation 2 recognized %s \n", yytext);  return opr_ari;} 
+{op_ar} 		{yylval.str=strdup(yytext); insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetc operation 1 recognized  %s \n", yytext); return opr_ar;}
+{op_ari}	 	{yylval.str=strdup(yytext); insert(yytext,"separator","",0); col=col+strlen(yytext); printf("arithmetic operation 2 recognized %s \n", yytext);  return opr_ari;} 
 "("       	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("openBracket recognized \n");  return openBracket;}
 "["       	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("openSquareBracket recognized \n"); return openSquareBracket;}
 "]"       	{insert(yytext,"separator","",0); col=col+strlen(yytext); printf("closeSquareBracket recognized \n"); return closeSquareBracket;}
