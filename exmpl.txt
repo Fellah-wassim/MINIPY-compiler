@@ -7,7 +7,7 @@ B = 5
 char D
 if (A!=0):
     Mai=1
-    B=A+(1+4)
+    B=1+4+5+6
     B=N
 else:
     A=1

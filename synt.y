@@ -104,11 +104,14 @@ cond: operand logicalOperand operand
 	| key_word_NOT operand
 	| key_word_NOT openBracket expression closeBracket
 ;
-expression: operand opr expression {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2,$1,$3.operator2,temp);}
+expression: operand opr expression {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); strcpy($$.operator2,temp); Quad($2,$1,$3.operator2,temp);}
 	| operand opr openBracket expression closeBracket {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad($2,$1,$4.stocker,temp);}
 	| openBracket expression closeBracket {strcpy($$.stocker,$2.stocker);}
 	| operand  {strcpy($$.operator2,$1);}
 ;
+// expressionWithBrackets: openBracket expression closeBracket 
+// {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad("","","",temp); printf("------------%s========",$2.operator1);}
+// ;
 opr: opr_ar { strcpy($$,$1);}
   | opr_ari {strcpy($$,$1);}
 ;
