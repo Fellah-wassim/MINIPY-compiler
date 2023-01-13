@@ -100,6 +100,11 @@ declaration : type IDF ListIDF
 		sprintf(temp,"%s[%s]",$1,$3);
 		Quad("=:",temp,"",$6.stocker);
 	}
+	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT IDF 
+	{
+		sprintf(temp,"%s[%s]",$1,$3);
+		Quad("=:",temp,"",$6);
+	}
 ;
 
 type : key_word_INTEGER {strcpy(stockedType,"int");}
