@@ -2,6 +2,8 @@
 #comment to be ignored
 int G
 int A[6]
+Y[8]=8+2+3
+H[7]=6+9+65
 int B
 B = 5
 char D

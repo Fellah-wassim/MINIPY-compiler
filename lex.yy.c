@@ -801,7 +801,7 @@ YY_RULE_SETUP
 case 27:
 YY_RULE_SETUP
 #line 53 "lexical.l"
-{if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.str=strdup(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("INT recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
+{if(atoi(yytext) > -32768 && atoi(yytext) < 32768){yylval.str=strdup(yytext); insert(yytext,"const int","int",atoi(yytext)); col=col+strlen(yytext); printf("integer recognized %s \n", yytext ); return CST_INT;}else{printf("integer invalide line: %d, colonne: %d", lineNumber,col);}} 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP

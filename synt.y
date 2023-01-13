@@ -35,7 +35,7 @@
 %nonassoc comparisionOperand newLine    
 %right key_word_NOT 
 %left opr_ari opr_ar
-%type<str> declaration type  ListIDF VALUE case opr operand
+%type<str> declaration type  ListIDF VALUE opr operand
 %type<quadType> expression 
 %%
 Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
@@ -55,6 +55,9 @@ declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stoc
 	| type IDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
 	| IDF key_word_ASSIGNMENT VALUE {Quad(":=",$3,"",$1);} {insertValue($1,$3,stockedType); insertType($1, stockedType);}
 	| type IDF openSquareBracket CST_INT closeSquareBracket  {insertType($1, stockedType);}
+	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT VALUE {sprintf(temp,"%s[%s]",$1,$3) ;Quad("=:",temp,"",$6);}
+	| IDF key_word_ASSIGNMENT expression 	{Quad("=:",$3.stocker,"",$1);}
+	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT expression {sprintf(temp,"%s[%s]",$1,$3) ;Quad("=:",temp,"",$6.stocker);}
 ;
 ;
 type : key_word_INTEGER {strcpy(stockedType,"int");}
@@ -80,8 +83,8 @@ instruction : inst_ASSIGNMENT
 ;
 inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand {Quad(":=",$3,"",$1);}
 	| IDF key_word_ASSIGNMENT expression 	{Quad("=:",$3.stocker,"",$1);}
-	| IDF openSquareBracket CST_INT closeSquareBracket  key_word_ASSIGNMENT operand {}
-	| IDF openSquareBracket CST_INT closeSquareBracket  key_word_ASSIGNMENT expression
+	| IDF openSquareBracket CST_INT closeSquareBracket  key_word_ASSIGNMENT operand {sprintf(temp,"%s[%d]",$1,$2) ;Quad("=:",temp,"",$6);}
+	| IDF openSquareBracket CST_INT closeSquareBracket  key_word_ASSIGNMENT expression {sprintf(temp,"%s[%s]",$1,$3); Quad("=:",temp,"",$6.stocker);} 
 ;
 inst_if : key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
 	| key_word_IF openBracket cond closeBracket colon newLine Bloc 
@@ -115,7 +118,7 @@ opr: opr_ar { strcpy($$,$1);}
 ;
 operand: VALUE {strcpy($$,$1);}
 	| IDF	{strcpy($$,$1);}
-	| openSquareBracket CST_INT closeSquareBracket  
+	| IDF openSquareBracket CST_INT closeSquareBracket  
 ;
 %%
 
