@@ -26,9 +26,12 @@
 		char stocker[20];  
 	} quadType; 
 }
-%token <str>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>key_word_BOOL <str>key_word_IF <str>key_word_ELSE <str>key_word_FOR 
-%token <str>key_word_RANGE <str>key_word_IN <str>key_word_WHILE <str>IDF <str>virgule <str>key_word_ASSIGNMENT  <str>openSquareBracket <str>closeSquareBracket <str>openBracket <str>closeBracket <str>colon
-%token <str>logicalOperand <str>opr_ar <str>opr_ari <str>key_word_NOT <str>comparisionOperand ind <str>newLine <str>CST_INT
+%token <str>key_word_INTEGER <reel>key_word_FLOAT <str>key_word_CHAR <str>openBracket 
+%token <str>key_word_IF <str>key_word_ELSE <str>key_word_FOR <str>key_word_NOT
+%token <str>key_word_RANGE <str>key_word_IN <str>key_word_WHILE <str>IDF <str>virgule 
+%token <str>key_word_ASSIGNMENT  <str>openSquareBracket <str>closeSquareBracket 
+%token <str>closeBracket <str>colon <str>logicalOperand <str>opr_ar <str>opr_ari 
+%token <str>comparisionOperand ind <str>newLine <str>CST_INT <str>key_word_BOOL 
 %token <str>CST_FLOAT <str>CST_CHAR <str>CST_BOOL comment
 
 %start Start
