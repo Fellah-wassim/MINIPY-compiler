@@ -495,7 +495,7 @@ static const yytype_uint8 yyrline[] =
       64,    66,    67,    68,    69,    71,    72,    74,    75,    77,
       78,    79,    80,    82,    83,    84,    85,    87,    88,    90,
       92,    93,    95,    97,    99,   101,   102,   104,   105,   106,
-     107,   109,   110,   111,   112,   117,   118,   120,   121,   122
+     107,   109,   110,   111,   112,   114,   115,   117,   118,   119
 };
 #endif
 
@@ -1641,28 +1641,28 @@ yyreduce:
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 117 "synt.y"
+#line 114 "synt.y"
     { strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 118 "synt.y"
+#line 115 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 120 "synt.y"
+#line 117 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 121 "synt.y"
+#line 118 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
@@ -1881,7 +1881,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 124 "synt.y"
+#line 121 "synt.y"
 
 
 main()

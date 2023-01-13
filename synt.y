@@ -54,9 +54,8 @@ newLines : newLine newLines
 declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
 	| type IDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
 	| IDF key_word_ASSIGNMENT VALUE {Quad(":=",$3,"",$1);} {insertValue($1,$3,stockedType); insertType($1, stockedType);}
-	| type case {insertType($1, stockedType);}
+	| type IDF openSquareBracket CST_INT closeSquareBracket  {insertType($1, stockedType);}
 ;
-case : IDF openSquareBracket CST_INT closeSquareBracket 
 ;
 type : key_word_INTEGER {strcpy(stockedType,"int");}
 	| key_word_FLOAT {strcpy(stockedType,"float");}
@@ -81,8 +80,8 @@ instruction : inst_ASSIGNMENT
 ;
 inst_ASSIGNMENT : IDF key_word_ASSIGNMENT operand {Quad(":=",$3,"",$1);}
 	| IDF key_word_ASSIGNMENT expression 	{Quad("=:",$3.stocker,"",$1);}
-	| case key_word_ASSIGNMENT operand {}
-	| case key_word_ASSIGNMENT expression
+	| IDF openSquareBracket CST_INT closeSquareBracket  key_word_ASSIGNMENT operand {}
+	| IDF openSquareBracket CST_INT closeSquareBracket  key_word_ASSIGNMENT expression
 ;
 inst_if : key_word_IF openBracket cond closeBracket colon newLine Bloc key_word_ELSE colon newLine Bloc
 	| key_word_IF openBracket cond closeBracket colon newLine Bloc 
@@ -111,15 +110,12 @@ expression: operand opr expression {sprintf(temp,"temp%d",tempCounter); tempCoun
 	| openBracket expression closeBracket {strcpy($$.stocker,$2.stocker);}
 	| operand  {strcpy($$.operator2,$1);}
 ;
-// expressionWithBrackets: openBracket expression closeBracket 
-// {sprintf(temp,"temp%d",tempCounter); tempCounter++; strcpy($$.stocker,temp); Quad("","","",temp); printf("------------%s========",$2.operator1);}
-// ;
 opr: opr_ar { strcpy($$,$1);}
   | opr_ari {strcpy($$,$1);}
 ;
 operand: VALUE {strcpy($$,$1);}
 	| IDF	{strcpy($$,$1);}
-	| case 
+	| openSquareBracket CST_INT closeSquareBracket  
 ;
 %%
 
