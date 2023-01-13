@@ -51,13 +51,52 @@ newLines : newLine newLines
 	| newLine
 ;
 
-declaration : type IDF ListIDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
-	| type IDF {if(doubleDeclaration($2)==0){insertType($2, stockedType);}else{printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1); error=1; YYERROR;};}
-	| IDF key_word_ASSIGNMENT VALUE {Quad(":=",$3,"",$1);} {insertValue($1,$3,stockedType); insertType($1, stockedType);}
-	| type IDF openSquareBracket CST_INT closeSquareBracket  {insertType($1, stockedType);}
-	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT VALUE {sprintf(temp,"%s[%s]",$1,$3) ;Quad("=:",temp,"",$6);}
-	| IDF key_word_ASSIGNMENT expression 	{Quad("=:",$3.stocker,"",$1);}
-	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT expression {sprintf(temp,"%s[%s]",$1,$3) ;Quad("=:",temp,"",$6.stocker);}
+declaration : type IDF ListIDF
+ {	
+		if(doubleDeclaration($2)==0)
+		{
+			insertType($2, stockedType);
+		}else
+		{	printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1);
+			error=1; 
+			YYERROR;
+		};
+	}
+	| type IDF 
+		{
+			if(doubleDeclaration($2)==0)
+			{
+				insertType($2, stockedType);
+			}else{
+				printf("Semantic error: double declaration of %s, in line %d \n",$2,lineNumber-1);
+				error=1;
+				YYERROR;
+			};
+		}
+	| IDF key_word_ASSIGNMENT VALUE 
+		{
+			Quad(":=",$3,"",$1);
+			insertValue($1,$3,stockedType);
+			insertType($1, stockedType);
+		}
+	| type IDF openSquareBracket CST_INT closeSquareBracket  
+		{
+			insertType($1, stockedType);
+		}
+	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT VALUE
+		{
+			sprintf(temp,"%s[%s]",$1,$3);
+			Quad("=:",temp,"",$6);
+		}
+	| IDF key_word_ASSIGNMENT expression
+		{
+			Quad("=:",$3.stocker,"",$1);
+		}
+	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT expression 
+		{
+			sprintf(temp,"%s[%s]",$1,$3);
+			Quad("=:",temp,"",$6.stocker);
+		}
 ;
 ;
 type : key_word_INTEGER {strcpy(stockedType,"int");}
@@ -125,8 +164,11 @@ operand: VALUE {strcpy($$,$1);}
 main()
 {
   yyparse();
-	if(error==0){displaySymbolTable();} 
-		displayQuad();
+	if(error==0)
+	{
+		displaySymbolTable();
+	} 
+	displayQuad();
 }
 yywrap()
 {}
