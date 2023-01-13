@@ -5,8 +5,8 @@ int A[6]
 int Y[10]
 G = 5
 Y[8]= G
-Y[2]= 5+3+2
 int B
+Y[2]= 5+3+2
 B = 5
 char D
 if (A!=0):
