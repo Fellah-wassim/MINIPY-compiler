@@ -173,7 +173,15 @@ inst_for : for1
 for1 : key_word_FOR IDF InRange colon newLine Bloc 
 ;
 
-InRange : key_word_RANGE openBracket VALUE virgule VALUE closeBracket {if(atoi($3)>atoi($5)){ printf ("Semantic error: upper bound lower than the lower bound in in line %d colonne %d \n",lineNumber,col);error=1; YYERROR;};}
+InRange : key_word_RANGE openBracket VALUE virgule VALUE closeBracket 
+	{
+		if(atoi($3)>atoi($5))
+		{ 
+			printf("Semantic error: upper bound lower than the lower bound in line %d colonne %d \n",lineNumber,col);
+			error=1;
+			YYERROR;
+		};
+	}
 ;
 
 for2 : key_word_FOR IDF key_word_IN IDF colon newLine Bloc
@@ -196,6 +204,9 @@ expression: operand opr expression
 		strcpy($$.stocker,temp);
 		strcpy($$.operator2,temp);
 		Quad($2,$1,$3.operator2,temp);
+		if(strcmp($2,"/")==0){
+			printf ("Semantic error: division per 0 in line %d \n",lineNumber-1); error=1; YYERROR;
+		};
 	}
 	| operand opr openBracket expression closeBracket
 	{
