@@ -42,7 +42,11 @@
 %type<quadType> expression 
 %%
 
-Start : declarationList ListInst {printf("Syntax correct \n"); YYACCEPT; } 
+Start : declarationList ListInst 
+	{
+		printf("Syntax correct \n"); 
+		YYACCEPT;
+	} 
 	| newLines declarationList ListInst
 ;
 

@@ -494,13 +494,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    45,    45,    46,    49,    50,    51,    52,    53,    56,
-      57,    60,    71,    82,    88,    92,    97,   101,   106,   113,
-     114,   115,   116,   119,   120,   121,   122,   125,   126,   139,
-     140,   143,   144,   145,   146,   149,   150,   151,   156,   162,
-     163,   166,   169,   170,   173,   176,   187,   190,   191,   194,
-     195,   196,   197,   200,   211,   217,   221,   224,   225,   228,
-     229,   230
+       0,    45,    45,    50,    53,    54,    55,    56,    57,    60,
+      61,    64,    75,    86,    92,    96,   101,   105,   110,   117,
+     118,   119,   120,   123,   124,   125,   126,   129,   130,   143,
+     144,   147,   148,   149,   150,   153,   154,   155,   160,   166,
+     167,   170,   173,   174,   177,   180,   191,   194,   195,   198,
+     199,   200,   201,   204,   215,   221,   225,   228,   229,   232,
+     233,   234
 };
 #endif
 
@@ -1495,14 +1495,17 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 45 "synt.y"
-    {printf("Syntax correct \n"); YYACCEPT; ;}
+#line 46 "synt.y"
+    {
+		printf("Syntax correct \n"); 
+		YYACCEPT;
+	;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 61 "synt.y"
+#line 65 "synt.y"
     {	
 		if(doubleDeclaration((yyvsp[(2) - (3)].str))==0)
 		{
@@ -1518,7 +1521,7 @@ yyreduce:
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 72 "synt.y"
+#line 76 "synt.y"
     {
 		if(doubleDeclaration((yyvsp[(2) - (2)].str))==0)
 		{
@@ -1534,7 +1537,7 @@ yyreduce:
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 83 "synt.y"
+#line 87 "synt.y"
     {
 		Quad(":=",(yyvsp[(3) - (3)].str),"",(yyvsp[(1) - (3)].str));
 		insertValue((yyvsp[(1) - (3)].str),(yyvsp[(3) - (3)].str),stockedType);
@@ -1545,7 +1548,7 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 89 "synt.y"
+#line 93 "synt.y"
     {
 		insertType((yyvsp[(1) - (5)].str), stockedType);
 	;}
@@ -1554,7 +1557,7 @@ yyreduce:
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 93 "synt.y"
+#line 97 "synt.y"
     {
 		sprintf(temp,"%s[%s]",(yyvsp[(1) - (6)].str),(yyvsp[(3) - (6)].str));
 		Quad("=:",temp,"",(yyvsp[(6) - (6)].str));
@@ -1564,7 +1567,7 @@ yyreduce:
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 98 "synt.y"
+#line 102 "synt.y"
     {
 		Quad("=:",(yyvsp[(3) - (3)].quadType).stocker,"",(yyvsp[(1) - (3)].str));
 	;}
@@ -1573,7 +1576,7 @@ yyreduce:
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 102 "synt.y"
+#line 106 "synt.y"
     {
 		sprintf(temp,"%s[%s]",(yyvsp[(1) - (6)].str),(yyvsp[(3) - (6)].str));
 		Quad("=:",temp,"",(yyvsp[(6) - (6)].quadType).stocker);
@@ -1583,7 +1586,7 @@ yyreduce:
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 107 "synt.y"
+#line 111 "synt.y"
     {
 		sprintf(temp,"%s[%s]",(yyvsp[(1) - (6)].str),(yyvsp[(3) - (6)].str));
 		Quad("=:",temp,"",(yyvsp[(6) - (6)].str));
@@ -1593,63 +1596,63 @@ yyreduce:
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 113 "synt.y"
+#line 117 "synt.y"
     {strcpy(stockedType,"int");;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 114 "synt.y"
+#line 118 "synt.y"
     {strcpy(stockedType,"float");;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 115 "synt.y"
+#line 119 "synt.y"
     {strcpy(stockedType,"char");;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 116 "synt.y"
+#line 120 "synt.y"
     {strcpy(stockedType,"bool");;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 119 "synt.y"
+#line 123 "synt.y"
     {strcpy(stockedType,"int"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 120 "synt.y"
+#line 124 "synt.y"
     {strcpy(stockedType,"float"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 121 "synt.y"
+#line 125 "synt.y"
     {strcpy(stockedType,"char"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 122 "synt.y"
+#line 126 "synt.y"
     {strcpy(stockedType,"bool"); strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 127 "synt.y"
+#line 131 "synt.y"
     {
 		if(doubleDeclaration((yyvsp[(1) - (2)].str))==0)
 		{
@@ -1665,21 +1668,21 @@ yyreduce:
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 149 "synt.y"
+#line 153 "synt.y"
     {Quad(":=",(yyvsp[(3) - (3)].str),"",(yyvsp[(1) - (3)].str));;}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 150 "synt.y"
+#line 154 "synt.y"
     {Quad("=:",(yyvsp[(3) - (3)].quadType).stocker,"",(yyvsp[(1) - (3)].str));;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 152 "synt.y"
+#line 156 "synt.y"
     {
 		sprintf(temp,"%s[%d]",(yyvsp[(1) - (6)].str),(yyvsp[(2) - (6)].str));
 		Quad("=:",temp,"",(yyvsp[(6) - (6)].str));
@@ -1689,7 +1692,7 @@ yyreduce:
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 157 "synt.y"
+#line 161 "synt.y"
     {
 		sprintf(temp,"%s[%s]",(yyvsp[(1) - (6)].str),(yyvsp[(3) - (6)].str));
 		Quad("=:",temp,"",(yyvsp[(6) - (6)].quadType).stocker);
@@ -1699,7 +1702,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 177 "synt.y"
+#line 181 "synt.y"
     {
 		if(atoi((yyvsp[(3) - (6)].str))>atoi((yyvsp[(5) - (6)].str)))
 		{ 
@@ -1713,7 +1716,7 @@ yyreduce:
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 201 "synt.y"
+#line 205 "synt.y"
     {
 		sprintf(temp,"temp%d",tempCounter);
 		tempCounter++;
@@ -1729,7 +1732,7 @@ yyreduce:
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 212 "synt.y"
+#line 216 "synt.y"
     {
 		sprintf(temp,"temp%d",tempCounter);
 		tempCounter++; strcpy((yyval.quadType).stocker,temp);
@@ -1740,7 +1743,7 @@ yyreduce:
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 218 "synt.y"
+#line 222 "synt.y"
     {
 		strcpy((yyval.quadType).stocker,(yyvsp[(2) - (3)].quadType).stocker);
 	;}
@@ -1749,42 +1752,42 @@ yyreduce:
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 221 "synt.y"
+#line 225 "synt.y"
     {strcpy((yyval.quadType).operator2,(yyvsp[(1) - (1)].str));;}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 224 "synt.y"
+#line 228 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 225 "synt.y"
+#line 229 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 228 "synt.y"
+#line 232 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 229 "synt.y"
+#line 233 "synt.y"
     {strcpy((yyval.str),(yyvsp[(1) - (1)].str));;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1788 "synt.tab.c"
+#line 1791 "synt.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1996,7 +1999,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 233 "synt.y"
+#line 237 "synt.y"
 
 
 main()
