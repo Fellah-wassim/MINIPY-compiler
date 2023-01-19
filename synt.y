@@ -85,6 +85,11 @@ declaration : type IDF ListIDF
 	}
 	| IDF key_word_ASSIGNMENT VALUE 
 	{
+		if(strcmp(symbolTable[search($1)].type,symbolTable[search($3)].type)!=0){
+			printf("Semantic error: incompatible types, in line %d \n",lineNumber-1);
+			error=1;
+			YYERROR;
+		}
 		Quad(":=",$3,"",$1);
 		insertValue($1,$3,stockedType);
 		insertType($1, stockedType);
@@ -95,6 +100,11 @@ declaration : type IDF ListIDF
 	}
 	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT VALUE
 	{
+		if(strcmp(symbolTable[search($1)].type,symbolTable[search($6)].type)!=0){
+			printf("Semantic error: incompatible types, in line %d \n",lineNumber-1);
+			error=1;
+			YYERROR;
+		}
 		int position = search($1);
 		if(search($1) != -1)
 		{
@@ -116,6 +126,11 @@ declaration : type IDF ListIDF
 	}
 	| IDF key_word_ASSIGNMENT expression
 	{
+		if(strcmp(symbolTable[search($1)].type,$3.stocker)!=0){
+			printf("Semantic error: incompatible types, in line %d \n",lineNumber-1);
+			error=1;
+			YYERROR;
+		}
 		Quad("=:",$3.stocker,"",$1);
 	}
 	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT expression 

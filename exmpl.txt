@@ -9,8 +9,13 @@ int Y[10]
 #test division /0
 #G = 5/0
 G = 5
+bool K
+K= true
+#incompatible type test
+#K=5+2
+#K=5
+#A[6] = true
 int B
-Y[2]= 5+3+2
 B = 5
 char D
 if (A!=0):
