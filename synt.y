@@ -167,7 +167,7 @@ declaration : type IDF ListIDF
 			}
 			if( atoi(symbolTable[position].name) < atoi($3) )
 			{
-				printf("Semantic error: the table is declared in size of [%s] you can't index more then that, in line %d \n",symbolTable[position].name,lineNumber);
+				printf("Semantic error: the table is declared in size of [%s] you can't index more then that, in line %d \n",symbolTable[position].name,lineNumber-1);
 				error=1; 
 				YYERROR;
 			}
