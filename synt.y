@@ -108,7 +108,25 @@ declaration : type IDF ListIDF
 		Quad("=:",temp,"",$6.stocker);
 	}
 	| IDF openSquareBracket CST_INT closeSquareBracket key_word_ASSIGNMENT IDF 
-	{
+	{	
+		int position = search($1);
+		if(search($1) != -1)
+		{
+			if(search("[") != -1)
+			{
+				position = position + 1;
+			}else{
+				position = position + 2;
+			}
+			if( atoi(symbolTable[position].name) < atoi($3) )
+			{
+				printf("Semantic error: the table is declared in size of [%s] you can't index more then that, in line %d \n",symbolTable[position].name,lineNumber-1);
+				error=1; 
+				YYERROR;
+			}
+		}else{
+			
+		}
 		sprintf(temp,"%s[%s]",$1,$3);
 		Quad("=:",temp,"",$6);
 	}
@@ -242,8 +260,9 @@ main()
 	if(error==0)
 	{
 		displaySymbolTable();
+		displayQuad();
 	} 
-	displayQuad();
+	
 }
 yywrap()
 {}

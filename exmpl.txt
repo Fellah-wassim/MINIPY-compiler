@@ -2,9 +2,10 @@
 #comment to be ignored
 int G
 int A[6]
-int Y[10]
+# A[7]= G //test when the index is greater than the size of the table
+#int Y[10]
+#Y[11] = G
 G = 5
-Y[8]= G
 int B
 Y[2]= 5+3+2
 B = 5
