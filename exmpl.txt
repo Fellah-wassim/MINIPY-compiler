@@ -22,9 +22,6 @@ if (A!=0):
     Mai=1
     X=A+(1+4)
     B=N
-else:
-    A=1
-    Hi=5+3
 
 for T in range (1,3):
     Hi=5
