@@ -203,7 +203,7 @@ ListIDF : virgule IDF ListIDF
 	}
 ;
 
-ListInst: instruction newLine ListInst 
+ListInst: instruction newLines ListInst 
 	| instruction 
 ;
 
