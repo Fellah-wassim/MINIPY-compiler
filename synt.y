@@ -254,10 +254,13 @@ InRange : key_word_RANGE openBracket VALUE virgule VALUE closeBracket
 for2 : key_word_FOR IDF key_word_IN IDF colon newLine Bloc
 ;
 
-Bloc: ind instruction newLine Bloc
+Bloc: inds instruction newLine Bloc
 	| 
 ;
 
+inds: ind inds
+	| ind
+;
 cond: operand logicalOperand operand
 	| operand comparisionOperand operand
 	| key_word_NOT operand
