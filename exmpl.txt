@@ -18,6 +18,7 @@ K= true
 int B
 B = 5
 char D
+#presentation passed
 if (A!=0):
     Mai=1
     X=A+(1+4)
